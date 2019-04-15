@@ -14,7 +14,9 @@ if CASTLE_PREFETCH then
     "sugarcoat/time.lua",
     "sugarcoat/utility.lua",
     "sugarcoat/window.lua",
-    "sugarcoat/sugarcoat.lua"
+    "sugarcoat/sugarcoat.lua",
+    
+    "test.png"
   })
 end
 
