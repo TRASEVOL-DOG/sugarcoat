@@ -1,4 +1,21 @@
-
+if CASTLE_PREFETCH then
+  CASTLE_PREFETCH({
+    "sugarcoat/TeapotPro.ttf",
+    "sugarcoat/audio.lua",
+    "sugarcoat/core.lua",
+    "sugarcoat/debug.lua",
+    "sugarcoat/gfx.lua",
+    "sugarcoat/gfx_vault.lua",
+    "sugarcoat/input.lua",
+    "sugarcoat/maths.lua",
+    "sugarcoat/map.lua",
+    "sugarcoat/sprite.lua",
+    "sugarcoat/text.lua",
+    "sugarcoat/time.lua",
+    "sugarcoat/utility.lua",
+    "sugarcoat/window.lua"
+  })
+end
 
 require("sugarcoat/sugarcoat")
 
