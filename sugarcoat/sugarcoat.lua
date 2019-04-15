@@ -1,27 +1,7 @@
-
-
-
 sugar = {}
 sugar.S = {}
 
-require("sugarcoat/utility")
-require("sugarcoat/debug")
-require("sugarcoat/maths")
-require("sugarcoat/gfx")
-require("sugarcoat/sprite")
-require("sugarcoat/text")
-require("sugarcoat/time")
-require("sugarcoat/input")
-require("sugarcoat/audio")
-require("sugarcoat/core")
-
-
 local events = require("sugarcoat/sugar_events")
-
-for k,e in pairs(events) do
-  love[k] = e
-end
-
 
 local active_canvas
 local old_love = love
@@ -39,7 +19,7 @@ love = setmetatable({}, {
           local r = v(...)
           
           -- wrap after
-          half_flip() -- do the custom flip (minus present())
+          sugar.gfx.half_flip() -- do the custom flip (minus present())
           
           active_canvas = love.graphics.getCanvas()
           love.graphics.setCanvas()
@@ -54,7 +34,7 @@ love = setmetatable({}, {
             old_love.graphics.setCanvas(active_canvas)
           end
           
-          sugar_step()
+          sugar.sugar_step()
           
           local r = v(...)
           
@@ -104,3 +84,23 @@ love = setmetatable({}, {
     end
   end
 })
+
+
+require("sugarcoat/utility")
+require("sugarcoat/debug")
+require("sugarcoat/maths")
+require("sugarcoat/gfx")
+require("sugarcoat/sprite")
+require("sugarcoat/text")
+require("sugarcoat/time")
+require("sugarcoat/input")
+require("sugarcoat/audio")
+require("sugarcoat/core")
+
+
+for k,e in pairs(events) do
+  old_love[k] = e
+end
+
+
+
