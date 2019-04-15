@@ -334,15 +334,16 @@ function events.mousemoved(x, y, dx, dy)
   _button_value("mouse_position", "dy", dy)
 end
 
+local _mouse_buttons = {"lb", "rb", "mb", "x1", "x2"}
 function events.mousepressed(x, y, b)
   if b < 6 then
-    _button_press_state("mouse_button", mouse_btn[b], true)
+    _button_press_state("mouse_button", _mouse_buttons[b], true)
   end
 end
 
 function events.mousereleased(x, y, b)
   if b < 6 then
-    _button_press_state("mouse_button", mouse_btn[b], false)
+    _button_press_state("mouse_button", _mouse_buttons[b], false)
   end
 end
 
