@@ -45,7 +45,6 @@ function love.update()
 end
 
 function love.draw()
-  target()
   color(0)
   cls()
 
