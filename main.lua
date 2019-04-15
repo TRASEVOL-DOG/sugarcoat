@@ -13,7 +13,8 @@ if CASTLE_PREFETCH then
     "sugarcoat/text.lua",
     "sugarcoat/time.lua",
     "sugarcoat/utility.lua",
-    "sugarcoat/window.lua"
+    "sugarcoat/window.lua",
+    "sugarcoat/sugarcoat.lua"
   })
 end
 
