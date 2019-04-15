@@ -57,7 +57,9 @@ local function shutdown_sugar()
   S.debug.log("All systems shut down.")
   S.debug.end_log()
   
-  love.event.push("quit")
+  if not castle then
+    love.event.push("quit")
+  end
 end
 
 
