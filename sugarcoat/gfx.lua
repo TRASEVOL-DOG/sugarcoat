@@ -13,6 +13,34 @@ local events = require("sugarcoat/sugar_events")
 
 local function _load_shaders()
   local shader_code = {
+--    color_to_index = [[
+--      varying vec2 v_vTexcoord;
+--      varying vec4 v_vColour;
+--      
+--      extern int pal_size;
+--      extern vec3 opal[256];
+--      
+--      vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
+--      {
+--        vec4 col = Texel( texture, texture_coords );
+--        
+--        int c=0;
+--        for (int i=0; i<pal_size; i++){
+--          c += i * int(max(-2.0-sign(abs(col.r-opal[i].r)-0.05)-sign(abs(col.g-opal[i].g)-0.05)-sign(abs(col.b-opal[i].b)-0.05), 0.0));
+--        }
+--      
+--        float cb = float(c);
+--        
+--        vec3 icol = vec3(
+--          mod(cb, 10.0),
+--          mod(floor(cb / 10.0), 10.0),
+--          mod(floor(cb / 100.0), 10.0)
+--        );
+--        
+--        return vec4(icol/10.0, 1.0);
+--      }
+--    ]],
+    
     color_to_index = [[
       varying vec2 v_vTexcoord;
       varying vec4 v_vColour;
@@ -20,13 +48,24 @@ local function _load_shaders()
       extern int pal_size;
       extern vec3 opal[256];
       
+      float sqr(float a) {
+        return a*a;
+      }
+      
       vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
       {
         vec4 col = Texel( texture, texture_coords );
         
-        int c=0;
-        for (int i=0; i<pal_size; i++){
-          c += i * int(max(-2.0-sign(abs(col.r-opal[i].r)-0.05)-sign(abs(col.g-opal[i].g)-0.05)-sign(abs(col.b-opal[i].b)-0.05), 0.0));
+        float sqrdist = 3.0;
+        float c = 0.0;
+        for (int i = 0; i < pal_size; i++){
+          //c += i * int(max(-2.0-sign(abs(col.r-opal[i].r)-0.05)-sign(abs(col.g-opal[i].g)-0.05)-sign(abs(col.b-opal[i].b)-0.05), 0.0));
+          
+          float sqrd = sqr(col.r - opal[i].r) + sqr(col.g - opal[i].g) + sqr(col.b - opal[i].b);
+          float b = max(sign(sqrdist - sqrd), 0.0);
+          
+          c = b * float(i) + (1.0 - b) * c;
+          sqrdist = b * sqrd + (1.0 - b) * sqrdist;
         }
       
         float cb = float(c);
