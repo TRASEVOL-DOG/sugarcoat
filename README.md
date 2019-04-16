@@ -1,6 +1,70 @@
 # sugarcoat
 An interface to use the SUGAR API with Castle &amp; Love2D
 
+[SUGAR](https://trasevol.dog/sugar/) is a retro-inspired, limitation-led C++ game engine!
+It features a minimalist API and a retro graphics infrastructure for making authentic low-resolution games.
+Sugarcoat is an attempt to reproduce most of SUGAR's behavior in [Castle](https://castle.games/) & [Love2D](https://love2d.org/).
+
+
+## Getting started
+First of all, make sure the folder `sugarcoat` is in your project's folder and is complete.
+Then do `require("sugarcoat/sugarcoat")` at the top of your `main.lua`.
+
+Next, I recommend that you do either of these lines: *(not both)*
+```lua
+local S = sugar.S```
+```lua
+sugar.utility.using_package(sugar.S, true)```
+
+`sugar.S` is intended to serve as a shortcut - it has the content of all the subpackages in sugar. So instead of calling `sugar.input.btn(0)`, you may write `sugar.S.btn(0)` or, after the `local S` line, `S.btn(0)`.
+
+`sugar.utility.using_package(package, override)` merges the given package into the global environment. In other words: the content of the package will now be global. By using it on `sugar.S`, you will be able to use all of sugarcoat's functions as global functions. So, with the previous example, you could simply use `btn(0)`.
+
+Then you can simply use `love.load`, `love.update` and `love.draw` to make your game. Make sure to use `sugar.init_sugar(window_name, w, h, scale)` at the top of `love.load`. The rest of the sugar systems will automatically update around `love.update()`, `love.draw()`.
+
+(you may change the screen stretching style with the various `sugar.gfx.screen_...` functions)
+
+In case you do not intend to use `love.update()` and `love.draw()`, you should call `sugar.sugar_step()` to update the input and time subsystems, and `sugar.gfx.flip()` to render the screen.
+
+And that is the essentials. I do recommend you at least skim through the rest of the manual to be aware of the various functions available to you.
+
+Here is a very quick example showing some of the basics:
+
+```lua
+require("sugarcoat/sugarcoat")
+sugar.utility.using_package(sugar.S)
+
+local x = 64
+local y = 64
+
+function love.load()
+  init_sugar("Hello world!", 128, 128, 3)
+  
+  set_frame_waiting(60)
+  
+  register_btn(0, 0, input_id("keyboard", "left"))
+  register_btn(1, 0, input_id("keyboard", "right"))
+  register_btn(2, 0, input_id("keyboard", "up"))
+  register_btn(3, 0, input_id("keyboard", "down"))
+end
+
+function love.update()
+  if btn(0) then x = x - 2 end
+  if btn(1) then x = x + 2 end
+  if btn(2) then y = y - 2 end
+  if btn(3) then y = y + 2 end
+end
+
+function love.draw()
+  cls()
+  circfill(x, y, 4 + 2 * cos(time()), 3)
+end```
+
+Have fun!
+
+
+---
+## sugar
 
 Here are the available packages and their functions:
 (this is a placeholder for the upcoming actual documentation)
