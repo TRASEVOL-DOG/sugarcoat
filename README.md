@@ -6,14 +6,17 @@ It features a minimalist API and a retro graphics infrastructure for making auth
 Sugarcoat is an attempt to reproduce most of SUGAR's behavior in [Castle](https://castle.games/) & [Love2D](https://love2d.org/).
 
 
+
 ## Getting started
 First of all, make sure the folder `sugarcoat` is in your project's folder and is complete.
 Then do `require("sugarcoat/sugarcoat")` at the top of your `main.lua`.
+
 
 Next, I recommend that you do either of these lines: *(not both)*
 ```lua
 local S = sugar.S
 ```
+OR
 ```lua
 sugar.utility.using_package(sugar.S, true)
 ```
@@ -22,11 +25,13 @@ sugar.utility.using_package(sugar.S, true)
 
 `sugar.utility.using_package(package, override)` merges the given package into the global environment. In other words: the content of the package will now be global. By using it on `sugar.S`, you will be able to use all of sugarcoat's functions as global functions. So, with the previous example, you could simply use `btn(0)`.
 
+
 Then you can simply use `love.load`, `love.update` and `love.draw` to make your game. Make sure to use `sugar.init_sugar(window_name, w, h, scale)` at the top of `love.load`. The rest of the sugar systems will automatically update around `love.update()`, `love.draw()`.
 
 (you may change the screen stretching style with the various `sugar.gfx.screen_...` functions)
 
 In case you do not intend to use `love.update()` and `love.draw()`, you should call `sugar.sugar_step()` to update the input and time subsystems, and `sugar.gfx.flip()` to render the screen.
+
 
 And that is the essentials. I do recommend you at least skim through the rest of the manual to be aware of the various functions available to you.
 
