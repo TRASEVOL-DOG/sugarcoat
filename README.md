@@ -12,9 +12,11 @@ Then do `require("sugarcoat/sugarcoat")` at the top of your `main.lua`.
 
 Next, I recommend that you do either of these lines: *(not both)*
 ```lua
-local S = sugar.S```
+local S = sugar.S
+```
 ```lua
-sugar.utility.using_package(sugar.S, true)```
+sugar.utility.using_package(sugar.S, true)
+```
 
 `sugar.S` is intended to serve as a shortcut - it has the content of all the subpackages in sugar. So instead of calling `sugar.input.btn(0)`, you may write `sugar.S.btn(0)` or, after the `local S` line, `S.btn(0)`.
 
@@ -58,7 +60,8 @@ end
 function love.draw()
   cls()
   circfill(x, y, 4 + 2 * cos(time()), 3)
-end```
+end
+```
 
 Have fun!
 
