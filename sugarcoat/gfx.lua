@@ -366,8 +366,10 @@ local function half_flip()
   local active_canvas = love.graphics.getCanvas()
   
   if active_canvas then
-    love.graphics.setCanvas()
+    local o_r, o_g, o_b = love.graphics.getColor()
+    
     love.graphics.setColor(1,1,1,1)
+    love.graphics.setCanvas()
     love.graphics.origin()
     
     _D.use_index_color_shader()
@@ -376,6 +378,8 @@ local function half_flip()
     love.graphics.draw(screen_canvas, _D.screen_x, _D.screen_y, 0, _D.screen_sca_x, _D.screen_sca_y)
 
     _D.reset_shader()
+    
+    love.graphics.setColor(o_r, o_g, o_b, 1)
   end
   
   love.graphics.setCanvas(active_canvas)
@@ -385,8 +389,10 @@ local function flip()
   local active_canvas = love.graphics.getCanvas()
   
   if active_canvas then
-    love.graphics.setCanvas()
+    local ocol = love.graphics.getColor()
+  
     love.graphics.setColor(1,1,1,1)
+    love.graphics.setCanvas()
     love.graphics.origin()
     
     _D.use_index_color_shader()
@@ -395,11 +401,14 @@ local function flip()
     love.graphics.draw(screen_canvas, _D.screen_x, _D.screen_y, 0, _D.screen_sca_x, _D.screen_sca_y)
 
     _D.reset_shader()
+    
+    love.graphics.setColor(ocol)
   end
   
   love.graphics.present()
   
   love.graphics.setCanvas(active_canvas)
+  color(_D.color)
 end
 
 
@@ -497,9 +506,12 @@ end
 
 
 local function clear(c)
-  if c then color(c) end
+  local col = _D.palette_norm[c or 0]
+  love.graphics.setColor(1,1,1,1)
   
-  love.graphics.clear()
+  love.graphics.clear(unpack(col))
+  
+  color(c or 0)
 end
 
 local cls = clear
