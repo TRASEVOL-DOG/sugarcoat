@@ -101,19 +101,6 @@ Here is the list of the available packages and their functions:
   - [`gfx`](/doc/gfx.md)
     - `init_gfx(window_name, w, h, scale)`
     - `shutdown_gfx()`
-    - `screen_render_stretch(enable)`
-    - `screen_render_integer_scale(enable)`
-    - `screen_resizeable(enable, scale, on_resize_callback)`
-    - `screen_resize(w, h, resize_window)`
-    - `update_screen_size()`
-    - `screen_get_render_stretch()`
-    - `screen_get_render_integer_scale()`
-    - `screen_get_resizeable()`
-    - `screen_size()`
-    - `screen_w()`
-    - `screen_h()`
-    - `screen_scale()`
-    - `half_flip()`
     - `flip()`
     - `camera(x, y)`
     - `camera_move(dx, dy)`
@@ -122,6 +109,7 @@ Here is the list of the available packages and their functions:
     - `get_clip()`
     - `color(i)`
     - `pal(ca, cb, flip_level)`
+    - `palt(c, make_transparent)`
     - `clear(c)`
     - `cls(c)`
     - `rectfill(xa, ya, xb, yb, c)`
@@ -136,6 +124,7 @@ Here is the list of the available packages and their functions:
     - `get_palette()`
     - `palette_len()`
     - `new_surface(w, h, key)`
+    - `load_png(key, file_name, palette, use_as_spritesheet)`
     - `delete_surface(key)`
     - `surface_size(key)`
     - `target(surf_key)`
@@ -146,10 +135,8 @@ Here is the list of the available packages and their functions:
     - `palettes` [a table]
     - `spritesheet(surf_key)`
     - `get_spritesheet()`
-    - `load_png(key, file_name, palette, use_as_spritesheet)`
     - `spritesheet_grid(w, h)`
     - `get_spritesheet_grid(w, h)`
-    - `palt(c, make_transparent)`
     - `spr(s, x, y, w, h, flip_x, flip_y)`
     - `aspr(s, x, y, a, w, h, anchor_x, anchor_y, scale_x, scale_y)`
     - `sspr(sx, sy, sw, sh, dx, dy, dw, dh)`
@@ -163,6 +150,18 @@ Here is the list of the available packages and their functions:
     - `printp(a, b, c, d)`
     - `printp_color(c1, c2, c3)`
     - `pprint(str, x, y, c1, c2, c3)`
+    - `screen_size()`
+    - `screen_w()`
+    - `screen_h()`
+    - `screen_scale()`
+    - `screen_render_stretch(enable)`
+    - `screen_render_integer_scale(enable)`
+    - `screen_resizeable(enable, scale, on_resize_callback)`
+    - `screen_resize(w, h, resize_window)`
+    - `update_screen_size()`
+    - `screen_get_render_stretch()`
+    - `screen_get_render_integer_scale()`
+    - `screen_get_resizeable()`
     - `window_size(w, h)`
     
   - `input`
