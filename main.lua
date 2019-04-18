@@ -101,7 +101,3 @@ function love.draw()
     aspr(0, px, py, -a, 2, 2)
   end
 end
-
-function love.quit()
-  shutdown_sugar()
-end

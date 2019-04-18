@@ -59,8 +59,6 @@ local function _load_shaders()
         float sqrdist = 3.0;
         float c = 0.0;
         for (int i = 0; i < pal_size; i++){
-          //c += i * int(max(-2.0-sign(abs(col.r-opal[i].r)-0.05)-sign(abs(col.g-opal[i].g)-0.05)-sign(abs(col.b-opal[i].b)-0.05), 0.0));
-          
           float sqrd = sqr(col.r - opal[i].r) + sqr(col.g - opal[i].g) + sqr(col.b - opal[i].b);
           float b = max(sign(sqrdist - sqrd), 0.0);
           
@@ -257,6 +255,8 @@ local function shutdown_gfx()
   if _love_pump then
     love.event.pump = _love_pump
   end
+  
+  love.graphics.setCanvas()
   
   _D.surf_list = nil
   _D.font_list = nil

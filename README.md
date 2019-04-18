@@ -67,7 +67,7 @@ end
 
 function love.draw()
   cls()
-  circfill(x, y, 4 + 2 * cos(time()), 3)
+  circfill(x, y, 4 + 2 * cos(t()), 3)
 end
 ```
 
@@ -76,18 +76,17 @@ Have fun!
  
 
 ---
-## sugar
 
-Here are the available packages and their functions:
+Here is the list of the available packages and their functions:
 (this is a placeholder for the upcoming actual documentation)
 
-* `sugar`
+* [`sugar`](/doc/sugar.md)
   - `init_sugar(window_name, w, h, scale)`
   - `sugar_step()`
   - `shutdown_sugar()`
   - `sys_battery()`
   
-  - `debug`
+  - [`debug`](/doc/debug.md)
     - `start_log(file_name)`
     - `end_log()`
     - `log(str)`
@@ -99,7 +98,7 @@ Here are the available packages and their functions:
     - `write_clipboard(str)`
     - `read_clipboard()`
   
-  - `gfx`
+  - [`gfx`](/doc/gfx.md)
     - `init_gfx(window_name, w, h, scale)`
     - `shutdown_gfx()`
     - `screen_render_stretch(enable)`

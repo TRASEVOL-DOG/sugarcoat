@@ -317,6 +317,7 @@ local function _button_value(type, key, value, controller)
   end
 end
 
+local ev = {}
 function events.keypressed(key, scancode)
   _button_press_state("keyboard", key, true)
   _button_press_state("keyboard_scancode", scancode, true)
@@ -341,38 +342,38 @@ function events.mousepressed(x, y, b)
   end
 end
 
-function events.mousereleased(x, y, b)
+function ev.mousereleased(x, y, b)
   if b < 6 then
     _button_press_state("mouse_button", _mouse_buttons[b], false)
   end
 end
 
 local _scroll_id = 0
-function events.wheelmoved(x, y)
+function ev.wheelmoved(x, y)
   _button_value("mouse_button", "scroll_x", x)
   _button_value("mouse_button", "scroll_y", y)
   _scroll_id = _scroll_id + 1
 end
 
-function events.gamepadaxis(joystick, axis, value)
+function ev.gamepadaxis(joystick, axis, value)
   _button_value("controller_axis", axis, value, joystick)
 end
 
-function events.gamepadpressed(joystick, button)
+function ev.gamepadpressed(joystick, button)
   _button_value("controller_button", button, true, joystick)
 end
 
-function events.gamepadreleased()
+function ev.gamepadreleased()
   _button_value("controller_button", button, false, joystick)
 end
 
 
-function events.joystickadded(joystick)
+function ev.joystickadded(joystick)
   sugar.utility.add(_controllers, joystick)
   sugar.debug.log("A new controller was detected!")
 end
 
-function events.joystickremoved()
+function ev.joystickremoved()
   sugar.utility.del(_controllers, joystick)
   sugar.debug.log("A controller was disconnected!")
 end
@@ -398,8 +399,9 @@ local function update_input()
   end
 end
 
-for k,e in pairs(events) do
+for k,e in pairs(ev) do
   love[k] = e
+  events[k] = e
 end
 
 

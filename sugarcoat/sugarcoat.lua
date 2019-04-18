@@ -117,6 +117,12 @@ require("sugarcoat/input")
 require("sugarcoat/audio")
 require("sugarcoat/core")
 
+local function quit()
+  sugar.shutdown_sugar()
+end
+
+love.quit = quit
+events.quit = quit
 
 for k,e in pairs(events) do
   old_love[k] = e
