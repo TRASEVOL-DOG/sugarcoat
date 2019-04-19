@@ -224,6 +224,18 @@ Here is the list of the available packages and their functions:
     - `frame_time_raw()`
     - `sys_ltime()`
     - `sys_gtime()`
+    
+  - `audio`
+    - `init_audio(sfx_vol, music_vol)`
+    - `shutdown_audio()`
+    - `load_sfx(file, id, volume)`
+    - `load_music(file, id, volume)`
+    - `sfx_volume(v)`
+    - `music_volume(v)`
+    - `unload_sfx(id)`
+    - `unload_music(id)`
+    - `sfx(id, distance, stereo_angle, pitch_shift)`
+    - `music(id, loop)`
 
   - `utility`
     - `using_package(p, do_override)`

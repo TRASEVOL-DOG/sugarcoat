@@ -25,6 +25,7 @@
 - A table that contains the content of all the subpackages in sugarcoat.
 - You may call any sugarcoat function through `sugar.S.foo()`.
 
+---
 
 The listed features in the following subpackage are not comprehensive, they're only big points.
 
