@@ -26,7 +26,7 @@
 
 &#8202;
 
-Angles in sugarcoat are turn-based, where 1 indicates a full turn. 1 is the equivalent of 360 degrees or 2&#928; radians. [More info here.](https://trasevol.dog/2017/06/08/doodle-insights-17-a-case-for-turn-based-angles/)
+Angles in sugarcoat are turn-based, where 1 indicates a full turn. 1 is the equivalent of 360 degrees or 2&#960; radians. [More info here.](https://trasevol.dog/2017/06/08/doodle-insights-17-a-case-for-turn-based-angles/)
 
 &#8202;
 
