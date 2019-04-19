@@ -4,7 +4,7 @@ The logs will be saved locally, at `%appdata%\LOVE\[project  (or Castle)]` if on
 If you are using Castle, the logs will also appear in the development console.
 
 - Contents:
-  - [`start_log(file_name)`](#sugardebug-start_log-file_name)
+  - [`start_log(file_name)`](#sugardebug-start_log-file_name--logtxt)
   - [`end_log()`](#sugardebug-end_log-)
   - [`log(str)`](#sugardebug-log-str)
   - [`w_log(str)`](#sugardebug-w_log-str)

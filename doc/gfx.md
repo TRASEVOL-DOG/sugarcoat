@@ -4,16 +4,16 @@
   - [`init_gfx(window_name, w, h, scale)`](#sugargfx-init_gfx-window_name-w-h-scale)
   - [`shutdown_gfx()`](#sugargfx-shutdown_gfx-)
   - [`flip()`](#sugargfx-flip-)
-  - [`camera(x, y)`](#sugargfx-camera-x-y)
+  - [`camera(x, y)`](#sugargfx-camera-x--0-y--0)
   - [`camera_move(dx, dy)`](#sugargfx-camera_move-dx-dy)
   - [`get_camera()`](#sugargfx-get_camera-)
   - [`clip(x, y, w, h)`](#sugargfx-clip-x-y-w-h)
   - [`get_clip()`](#sugargfx-get_clip-)
   - [`color(i)`](#sugargfx-color-i)
-  - [`pal(ca, cb, flip_level)`](#sugargfx-pal-ca-cb-flip_level)
+  - [`pal(ca, cb, flip_level)`](#sugargfx-pal-ca-cb-flip_level--false)
   - [`palt(c, make_transparent)`](#sugargfx-palt-c-make_transparent)
-  - [`clear(c)`](#sugargfx-clear-c)
-  - [`cls(c)`](#sugargfx-cls-c)
+  - [`clear(c)`](#sugargfx-clear-c--0)
+  - [`cls(c)`](#sugargfx-cls-c--0)
   - [`rectfill(xa, ya, xb, yb, c)`](#sugargfx-rectfill-xa-ya-xb-yb-c)
   - [`rect(xa, ya, xb, yb, c)`](#sugargfx-rect-xa-ya-xb-yb-c)
   - [`circfill(x, y, r, c)`](#sugargfx-circfill-x-y-r-c)
@@ -37,11 +37,11 @@
   - [`palettes`](#sugargfx-palettes)
   - [`spritesheet(surf_key)`](#sugargfx-spritesheet-surf_key)
   - [`get_spritesheet()`](#sugargfx-get_spritesheet-)
-  - [`spritesheet_grid(w, h)`](#sugargfx-spritesheet_grid-w-h)
-  - [`get_spritesheet_grid(w, h)`](#sugargfx-get_spritesheet_grid-w-h)
-  - [`spr(s, x, y, w, h, flip_x, flip_y)`](#sugargfx-spr-s-x-y-w-h-flip_x-flip_y)
-  - [`aspr(s, x, y, a, w, h, anchor_x, anchor_y, scale_x, scale_y)`](#sugargfx-aspr-s-x-y-a-w-h-anchor_x-anchor_y-scale_x-scale_y)
-  - [`sspr(sx, sy, sw, sh, dx, dy, dw, dh)`](#sugargfx-sspr-sx-sy-sw-sh-dx-dy-dw-dh)
+  - [`spritesheet_grid(w, h)`](#sugargfx-spritesheet_grid-w--8-h--8)
+  - [`get_spritesheet_grid()`](#sugargfx-get_spritesheet_grid-)
+  - [`spr(s, x, y, w, h, flip_x, flip_y)`](#sugargfx-spr-s-x-y-w--1-h--1-flip_x-flip_y)
+  - [`aspr(s, x, y, a, w, h, anchor_x, anchor_y, scale_x, scale_y)`](#sugargfx-aspr-s-x-y-a-w--1-h--1-anchor_x--05-anchor_y--05-scale_x-scale_y)
+  - [`sspr(sx, sy, sw, sh, dx, dy, dw, dh)`](#sugargfx-sspr-sx-sy-sw-sh-dx-dy-dw--sw-dh--sh)
   - [`spr_sheet(x, y, key)`](#sugargfx-spr_sheet-x-y-key)
   - [`load_font(ttf_filepath, size, key, use_it)`](#sugargfx-load_font-ttf_filepath-size-key-use_it)
   - [`delete_font(key)`](#sugargfx-delete_font-key)
@@ -319,7 +319,7 @@ Note that the spritesheet drawing functions will fail if no spritesheet surface 
 
 &#8202;
 
-#### `sugar.gfx. get_spritesheet_grid (w, h)`
+#### `sugar.gfx. get_spritesheet_grid ()`
 - Returns:
   - the grid's tile width
   - the grid's tile height

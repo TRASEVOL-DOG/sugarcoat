@@ -136,7 +136,7 @@ Here is the list of the available packages and their functions:
     - `spritesheet(surf_key)`
     - `get_spritesheet()`
     - `spritesheet_grid(w, h)`
-    - `get_spritesheet_grid(w, h)`
+    - `get_spritesheet_grid()`
     - `spr(s, x, y, w, h, flip_x, flip_y)`
     - `aspr(s, x, y, a, w, h, anchor_x, anchor_y, scale_x, scale_y)`
     - `sspr(sx, sy, sw, sh, dx, dy, dw, dh)`

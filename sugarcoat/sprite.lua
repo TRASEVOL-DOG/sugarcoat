@@ -79,7 +79,7 @@ local function spritesheet_grid(w, h)
   end
 end
 
-local function get_spritesheet_grid(w, h)
+local function get_spritesheet_grid()
   return _D.spsh_gw, _D.spsh_gh
 end
 

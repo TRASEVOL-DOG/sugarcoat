@@ -455,24 +455,22 @@ end
 ---- DRAWING ----
 
 local function camera(x, y)
-  x = sugar.maths.flr(x or 0)
-  y = sugar.maths.flr(y or 0)
+  x = x or 0
+  y = y or 0
   
   love.graphics.origin()
-  love.graphics.translate(x, y)
+  love.graphics.translate(-sugar.maths.flr(x), -sugar.maths.flr(y))
   
   _D.cam_x = x
   _D.cam_y = y
 end
 
 local function camera_move(dx, dy)
-  dx = sugar.maths.flr(dx)
-  dy = sugar.maths.flr(dy)
-  
-  love.graphics.translate(dx, dy)
-  
   _D.cam_x = _D.cam_x + dx
   _D.cam_y = _D.cam_y + dy
+  
+  love.graphics.origin()
+  love.graphics.translate(-sugar.maths.flr(_D.cam_x), -sugar.maths.flr(_D.cam_y))
 end
 
 local function get_camera()
