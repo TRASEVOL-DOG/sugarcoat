@@ -184,17 +184,17 @@ Here is the list of the available packages and their functions:
     - `ctrlr_has_default_bindings(controller)`
     - `ctrlr_name(controller)`
     
-  - `maths`
+  - [`maths`](/doc/maths.md#sugar-maths)
     - `cos(a)`
     - `sin(a)`
     - `atan2(x, y)`
     - `lerp(a, b, i)`
+    - `flr(a)`
+    - `ceil(a)`
     - `round(a)`
     - `sgn(a)`
     - `pow(a, b)`
     - `sqrt(a)`
-    - `flr(a)`
-    - `ceil(a)`
     - `abs(a)`
     - `min(a, b)`
     - `max(a, b)`

@@ -1,7 +1,7 @@
 # `sugar`
 
 - Contents:
-  - [`init_sugar(window_name,w,h,scale)`](#sugar-init_sugar-window_name-w-h-scale)
+  - [`init_sugar(window_name, w, h, scale)`](#sugar-init_sugar-window_name-w-h-scale)
   - [`sugar_step()`](#sugar-sugar_step-)
   - [`shutdown_sugar()`](#sugar-shutdown_sugar-)
   - [`sys_battery()`](#sugar-sys_battery-)
@@ -76,7 +76,7 @@ The listed features in the following subpackage are not comprehensive, they're o
 
 &#8202;
 
-#### `sugar. maths`
+#### [`sugar. maths`](/doc/maths.md#sugar-maths)
 - The maths subpackage of sugar.
 - Features turn-based angles and determinative random number generation.
 
