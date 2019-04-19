@@ -5,7 +5,7 @@ An interface to use the SUGAR API with Castle &amp; Love2D
 It features a minimalist API and a retro graphics infrastructure for making authentic low-resolution games.
 Sugarcoat is an attempt to reproduce most of SUGAR's behavior in [Castle](https://castle.games/) & [Love2D](https://love2d.org/).
 
- 
+The documentation hub is [here](/doc/sugar.md#sugar).
 
 ## Getting started
 First of all, make sure the folder `sugarcoat` is in your project's folder and is complete.
@@ -73,12 +73,10 @@ end
 
 Have fun!
 
- 
-
 ---
 
-Here is the list of the available packages and their functions:
-(this is a placeholder for the upcoming actual documentation)
+Here is the list of all the available packages and their functions:
+_(Packages have links to more detailed documentation)_
 
 * [`sugar`](/doc/sugar.md#sugar)
   - `init_sugar(window_name, w, h, scale)`
