@@ -208,7 +208,7 @@ Here is the list of the available packages and their functions:
     - `irnd(n)`
     - `pick(tab)`
     
-  - `time`
+  - [`time`](/doc/time.md#sugar-time)
     - `init_time()`
     - `update_time()`
     - `set_frame_waiting(fps)`

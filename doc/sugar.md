@@ -82,7 +82,7 @@ The listed features in the following subpackage are not comprehensive, they're o
 
 &#8202;
 
-#### `sugar. time`
+#### [`sugar. time`](/doc/time.md#sugar-time)
 - The time subpackage of sugar.
 - Features frames-per-second locking.
 

@@ -1,24 +1,24 @@
 ## `sugar. input`
 
-Contents:
-- [`init_input()`](#sugarinput-init_input-)
-- [`update_input()`](#sugarinput-update_input-)
-- [`shutdown_input()`](#sugarinput-shutdown_input-)
-- [`exit_required()`](#sugarinput-exit_required-)
-- [`require_exit()`](#sugarinput-require_exit-)
-- [`new_player()`](#sugarinput-new_player-)
-- [`input_type`](#sugarinput-input_type)
-- [`input_id(type, id)`](#sugarinput-input_id-type-id)
-- [`register_btn(btn_id, player, inputs)`](#sugarinput-register_btn-btn_id-player-inputs)
-- [`btn(id, player)`](#sugarinput-btn-id-player--0)
-- [`btnp(id, player)`](#sugarinput-btnp-id-player--0)
-- [`btnr(id, player)`](#sugarinput-btnr-id-player--0)
-- [`btnv(id, player)`](#sugarinput-btnv-id-player--0)
-- [`ctrlr_list()`](#sugarinput-ctrlr_list-)
-- [`ctrlr_count()`](#sugarinput-ctrlr_count-)
-- [`player_assign_ctrlr(player, controller)`](#sugarinput-player_assign_ctrlr-player-controller)
-- [`ctrlr_has_default_bindings(controller)`](#sugarinput-ctrlr_has_default_bindings-controller)
-- [`ctrlr_name(controller)`](#sugarinput-ctrlr_name-controller)
+- Contents:
+  - [`init_input()`](#sugarinput-init_input-)
+  - [`update_input()`](#sugarinput-update_input-)
+  - [`shutdown_input()`](#sugarinput-shutdown_input-)
+  - [`exit_required()`](#sugarinput-exit_required-)
+  - [`require_exit()`](#sugarinput-require_exit-)
+  - [`new_player()`](#sugarinput-new_player-)
+  - [`input_type`](#sugarinput-input_type)
+  - [`input_id(type, id)`](#sugarinput-input_id-type-id)
+  - [`register_btn(btn_id, player, inputs)`](#sugarinput-register_btn-btn_id-player-inputs)
+  - [`btn(id, player)`](#sugarinput-btn-id-player--0)
+  - [`btnp(id, player)`](#sugarinput-btnp-id-player--0)
+  - [`btnr(id, player)`](#sugarinput-btnr-id-player--0)
+  - [`btnv(id, player)`](#sugarinput-btnv-id-player--0)
+  - [`ctrlr_list()`](#sugarinput-ctrlr_list-)
+  - [`ctrlr_count()`](#sugarinput-ctrlr_count-)
+  - [`player_assign_ctrlr(player, controller)`](#sugarinput-player_assign_ctrlr-player-controller)
+  - [`ctrlr_has_default_bindings(controller)`](#sugarinput-ctrlr_has_default_bindings-controller)
+  - [`ctrlr_name(controller)`](#sugarinput-ctrlr_name-controller)
 
 &#8202;
 
