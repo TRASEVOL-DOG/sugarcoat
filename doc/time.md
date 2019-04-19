@@ -1,21 +1,21 @@
 ## `sugar. time`
 
 - Contents:
-    - [`init_time()`](#sugartime-init_time-)
-    - [`update_time()`](#sugartime-update_time-)
-    - [`set_frame_waiting(fps)`](#sugartime-set_frame_waiting-fps)
-    - [`t()`](#sugartime-t-)
-    - [`time()`](#sugartime-time-)
-    - [`dt()`](#sugartime-dt-)
-    - [`delta_time()`](#sugartime-delta_time-)
-    - [`sleep(sec)`](#sugartime-sleep-sec)
-    - [`freeze(sec)`](#sugartime-freeze-sec)
-    - [`fps()`](#sugartime-fps-)
-    - [`fps_raw()`](#sugartime-fps_raw-)
-    - [`frame_time()`](#sugartime-frame_time-)
-    - [`frame_time_raw()`](#sugartime-frame_time_raw-)
-    - [`sys_ltime()`](#sugartime-sys_ltime-)
-    - [`sys_gtime()`](#sugartime-sys_gtime-)
+  - [`init_time()`](#sugartime-init_time-)
+  - [`update_time()`](#sugartime-update_time-)
+  - [`set_frame_waiting(fps)`](#sugartime-set_frame_waiting-fps)
+  - [`t()`](#sugartime-t-)
+  - [`time()`](#sugartime-time-)
+  - [`dt()`](#sugartime-dt-)
+  - [`delta_time()`](#sugartime-delta_time-)
+  - [`sleep(sec)`](#sugartime-sleep-sec)
+  - [`freeze(sec)`](#sugartime-freeze-sec)
+  - [`fps()`](#sugartime-fps-)
+  - [`fps_raw()`](#sugartime-fps_raw-)
+  - [`frame_time()`](#sugartime-frame_time-)
+  - [`frame_time_raw()`](#sugartime-frame_time_raw-)
+  - [`sys_ltime()`](#sugartime-sys_ltime-)
+  - [`sys_gtime()`](#sugartime-sys_gtime-)
 
 &#8202;
 

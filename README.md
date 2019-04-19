@@ -225,7 +225,7 @@ Here is the list of the available packages and their functions:
     - `sys_ltime()`
     - `sys_gtime()`
     
-  - `audio`
+  - [`audio`](/doc/audio.md#sugar-audio)
     - `init_audio(sfx_vol, music_vol)`
     - `shutdown_audio()`
     - `load_sfx(file, id, volume)`
@@ -234,10 +234,10 @@ Here is the list of the available packages and their functions:
     - `music_volume(v)`
     - `unload_sfx(id)`
     - `unload_music(id)`
-    - `sfx(id, distance, stereo_angle, pitch_shift)`
+    - `sfx(id, distance, stereo_angle, pitch)`
     - `music(id, loop)`
 
-  - `utility`
+  - [`utility`](/doc/utility.md#sugar-utility)
     - `using_package(p, do_override)`
     - `all(ar)`
     - `del(ar, val)`
@@ -245,6 +245,6 @@ Here is the list of the available packages and their functions:
     - `add(ar, v)`
     - `sort(ar)`
     - `merge_tables(dst, src)`
-    - `copy_table(ar, deep)`
+    - `copy_table(tab, deep)`
   
   - `S` [contains everything]

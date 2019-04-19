@@ -88,13 +88,13 @@ The listed features in the following subpackage are not comprehensive, they're o
 
 &#8202;
 
-#### `sugar. audio`
+#### [`sugar. audio`](/doc/audio.md#sugar-audio)
 - The audio subpackage of sugar.
 - Features a collection system where you load sfx and musics, then play them through their index in the collection.
 
 &#8202;
 
-#### `sugar. utility`
+#### [`sugar. utility`](/doc/utility.md#sugar-utility)
 - The utility subpackage of sugar.
 - This subpackage is unique to sugarcoat, it doesn't exist in the original Sugar.
 - Features functions to work with Lua tables.
