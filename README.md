@@ -164,7 +164,7 @@ Here is the list of the available packages and their functions:
     - `screen_get_resizeable()`
     - `window_size(w, h)`
     
-  - `input`
+  - [`input`](/doc/input.md#sugar-input)
     - `init_input()`
     - `update_input()`
     - `shutdown_input()`

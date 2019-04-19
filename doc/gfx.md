@@ -69,7 +69,7 @@
 &#8202;
 
 #### `sugar.gfx. init_gfx (window_name, w, h, scale)`
-- Initializes the gfx subsystem of sugar.
+- Initializes the gfx subsystem of Sugar.
 - Is called by `init_sugar(...)`.
 - `w` and `h` are the width and height you want for your simulated screen resolution.
 - `scale` is the scale factor you want for stretching your simulated resolution. You can change the behavior around scaling with the various `sugar.gfx.screen_...` functions.

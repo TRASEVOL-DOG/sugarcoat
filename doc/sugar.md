@@ -69,7 +69,7 @@ The listed features in the following subpackage are not comprehensive, they're o
 
 &#8202;
 
-#### `sugar. input`
+#### [`sugar. input`](/doc/input.md#sugar-input)
 - The input subpackage of sugar.
 - Features a simple system where you assign inputs to buttons and then check for those button's state.
 - Has controller support.
