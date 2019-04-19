@@ -80,13 +80,13 @@ Have fun!
 Here is the list of the available packages and their functions:
 (this is a placeholder for the upcoming actual documentation)
 
-* [`sugar`](/doc/sugar.md)
+* [`sugar`](/doc/sugar.md#sugar)
   - `init_sugar(window_name, w, h, scale)`
   - `sugar_step()`
   - `shutdown_sugar()`
   - `sys_battery()`
   
-  - [`debug`](/doc/debug.md)
+  - [`debug`](/doc/debug.md#sugar-debug)
     - `start_log(file_name)`
     - `end_log()`
     - `log(str)`
@@ -98,7 +98,7 @@ Here is the list of the available packages and their functions:
     - `write_clipboard(str)`
     - `read_clipboard()`
   
-  - [`gfx`](/doc/gfx.md)
+  - [`gfx`](/doc/gfx.md#sugar-gfx)
     - `init_gfx(window_name, w, h, scale)`
     - `shutdown_gfx()`
     - `flip()`
