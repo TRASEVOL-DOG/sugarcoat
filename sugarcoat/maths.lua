@@ -79,16 +79,18 @@ local function raw_rnd()
   local t = B.bxor(x, B.rshift(x, 7))
   x, y, z, w = y, z, w, v
   v = B.bxor(B.bxor(v, B.lshift(v, 6)), B.bxor(t, B.lshift(t, 13)))
-  return (y + y + 1) * v
+  return B.tobit((y + y + 1) * v)
 end
 
 local function rnd(n)
   n = n or 1
-  return raw_rnd() / (UINT32_MAX/n);
+  --return raw_rnd() / 0xffffffff * n;
+  --return sugar.maths.sgn(n) * sugar.maths.abs(raw_rnd() / 4294967295 * n);
+  return ((raw_rnd() / 4294967295 + 0.5) * n);
 end
 
 local function irnd(n)
-  return flr(raw_rnd() % n);
+  return (raw_rnd() + 2147483648) % n;
 end
 
 local function pick(tab)
@@ -96,6 +98,9 @@ local function pick(tab)
   return tab[i], i
 end
 
+--local function rnd(a)
+--  return love.math.random(0,a)
+--end
 
 
 sugar.maths = {
