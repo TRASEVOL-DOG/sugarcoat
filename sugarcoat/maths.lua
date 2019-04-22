@@ -84,8 +84,6 @@ end
 
 local function rnd(n)
   n = n or 1
-  --return raw_rnd() / 0xffffffff * n;
-  --return sugar.maths.sgn(n) * sugar.maths.abs(raw_rnd() / 4294967295 * n);
   return ((raw_rnd() / 4294967295 + 0.5) * n);
 end
 
@@ -97,10 +95,6 @@ local function pick(tab)
   local i = irnd(#tab) + 1
   return tab[i], i
 end
-
---local function rnd(a)
---  return love.math.random(0,a)
---end
 
 
 sugar.maths = {
