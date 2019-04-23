@@ -191,6 +191,8 @@ _(Packages have links to more detailed documentation)_
     - `ceil(a)`
     - `round(a)`
     - `sgn(a)`
+    - `sqr(a)`
+    - `cub(a)`
     - `pow(a, b)`
     - `sqrt(a)`
     - `abs(a)`

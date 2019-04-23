@@ -8,6 +8,8 @@ local function lerp(a,b,i) return (1-i)*a+i*b end
 local function round(a) return flr(a+0.5) end
 local function sgn(a) return a>0 and 1 or a<0 and -1 or 0 end
 
+local function sqr(a) return a*a end
+local function cub(a) return a*a*a end
 
 local pow  = math.pow
 local sqrt = math.sqrt
@@ -33,7 +35,7 @@ local function dist(x1,y1,x2,y2)
     y=y1
   end
   
-  return sqrt(sqrdist(x,y))
+  return sugar.maths.sqrt(sqrdist(x,y))
 end
 
 local function sqrdist(x,y)

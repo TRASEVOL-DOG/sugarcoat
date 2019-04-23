@@ -9,6 +9,8 @@
   - [`ceil(a)`](#sugarmaths-ceil-a)
   - [`round(a)`](#sugarmaths-round-a)
   - [`sgn(a)`](#sugarmaths-sgn-a)
+  - [`sqr(a)`](#sugarmaths-sqr-a)
+  - [`cub(a)`](#sugarmaths-cub-a)
   - [`pow(a, b)`](#sugarmaths-pow-a-b)
   - [`sqrt(a)`](#sugarmaths-sqrt-a)
   - [`abs(a)`](#sugarmaths-abs-a)
@@ -75,9 +77,15 @@ Angles in sugarcoat are turn-based, where 1 indicates a full turn. 1 is the equi
 
 &#8202;
 
+#### `sugar.maths. sqr (a)`
+- Returns `a * a`.
+
+#### `sugar.maths. cub (a)`
+- Returns `a * a * a`.
+
 #### `sugar.maths. pow (a, b)`
 - Returns the result of `a` to the power of `b`.
-- `pow(a, 2)` is **much slower** than `(a * a)`.
+- `pow(a, 2)` is **much slower** than `sqr(a)`.
 
 &#8202;
 
