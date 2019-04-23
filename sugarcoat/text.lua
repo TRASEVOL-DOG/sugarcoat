@@ -62,7 +62,7 @@ local function str_px_width(str, font)
   return fnt:getWidth(str)
 end
 
-local function print(str, x, y, c)
+local function oprint(str, x, y, c)
   if c then color(c) end
   
   love.graphics.print(str, x, y)

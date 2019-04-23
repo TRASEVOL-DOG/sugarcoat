@@ -100,6 +100,8 @@ local function spr(s, x, y, w, h, flip_x, flip_y)
   s, x, y = s or 0, x or 0, y or 0
   w, h = (w or 1) * _D.spsh_gw, (h or 1) * _D.spsh_gh
   
+  s = flr(s)
+  
   local sx = (s % _D.spsh_nx) * _D.spsh_gw
   local sy = flr(s / _D.spsh_nx) * _D.spsh_gh
   
@@ -115,6 +117,8 @@ local function aspr(s, x, y, a, w, h, anchor_x, anchor_y, scale_x, scale_y)
   w, h = (w or 1) * _D.spsh_gw, (h or 1) * _D.spsh_gh
   anchor_x, anchor_y = anchor_x or 0.5, anchor_y or 0.5
   scale_x, scale_y = scale_x or 1, scale_y or 1
+  
+  s = flr(s)
   
   local sx = (s % _D.spsh_nx) * _D.spsh_gw
   local sy = flr(s / _D.spsh_nx) * _D.spsh_gh

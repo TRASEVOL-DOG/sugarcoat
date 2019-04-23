@@ -20,7 +20,9 @@ end
 local function _log(prefix, str)
   str = prefix.." "..str
   
-  logfile:write(str.."\r\n")
+  if logfile then
+    logfile:write(str.."\r\n")
+  end
   
   if castle then
     castle_print(str)

@@ -6,7 +6,7 @@ sugar = sugar or {}
 -- puts package's content into global environment
 -- will not replace already existing global content unless 'do_override' is true.
 local function using_package(p, do_override)
-  local env = getfenv(0)
+  local env = getfenv(2)
   
   for n,v in pairs(p) do
     if env[n] then

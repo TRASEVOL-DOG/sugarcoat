@@ -14,8 +14,8 @@ local function init_audio(sfx_vol, music_vol)
   _sfx_map = {}
   _music_map = {}
 
-  sfx_volume(1)
-  music_volume(1)
+  sfx_volume(sfx_vol or 1)
+  music_volume(music_vol or 1)
   
   sugar.debug.log("Audio system initialized.");
 end
@@ -39,11 +39,13 @@ local function load_sfx(file, id, volume)
     id = #_sfx_map + 1
   end
   
-  local volume = sugar.maths.mid(volume, 0, 1)
+  local volume = sugar.maths.mid(volume or 1, 0, 1)
   
   chnk:setVolume(volume * _sfx_volume)
   
   _sfx_map[id] = {chnk = chnk, volume = volume}
+  
+  return id
 end
 
 local function load_music(file, id, volume)
@@ -57,11 +59,13 @@ local function load_music(file, id, volume)
     id = #_music_map + 1
   end
   
-  local volume = sugar.maths.mid(volume, 0, 1)
+  local volume = sugar.maths.mid(volume or 1, 0, 1)
   
   mus:setVolume(volume * _sfx_volume)
   
   _music_map[id] = {mus = mus, volume = volume}
+  
+  return id
 end
 
 
@@ -104,7 +108,7 @@ local function unload_music(id)
 end
 
 
-local function sfx(id, distance, stereo_angle, pitch_shift)
+local function sfx(id, distance, stereo_angle, pitch)
   local s = _sfx_map[id]
   
   if not s then
@@ -114,9 +118,10 @@ local function sfx(id, distance, stereo_angle, pitch_shift)
   
   distance = distance or 0
   stereo_angle = stereo_angle or 0
-  pitch_shift = pitch_shift or 0
+  pitch = pitch or 1
   
   s.chnk:setPosition(distance * sugar.maths.cos(stereo_angle + 0.25), 0, 1)
+  s.chnk:setPitch(pitch)
   
   if s.chnk:isPlaying() then
     s.chnk:seek(0)
