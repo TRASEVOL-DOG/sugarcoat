@@ -294,6 +294,7 @@ end
 
 
 local events = require("sugarcoat/sugar_events")
+local _D = require("sugarcoat/gfx_vault")
 
 local function _button_press_state(type, key, state, controller)
   local butts = _event_inputs[type][key]
@@ -329,10 +330,10 @@ function events.keyreleased(key, scancode)
 end
 
 function events.mousemoved(x, y, dx, dy)
-  _button_value("mouse_position", "x", x)
-  _button_value("mouse_position", "y", y)
-  _button_value("mouse_position", "dx", dx)
-  _button_value("mouse_position", "dy", dy)
+  _button_value("mouse_position", "x", (x - _D.screen_x) / _D.screen_sca_x)
+  _button_value("mouse_position", "y", (y - _D.screen_y) / _D.screen_sca_y)
+  _button_value("mouse_position", "dx", dx / _D.screen_sca_x)
+  _button_value("mouse_position", "dy", dy / _D.screen_sca_y)
 end
 
 local _mouse_buttons = {"lb", "rb", "mb", "x1", "x2"}
@@ -363,7 +364,7 @@ function ev.gamepadpressed(joystick, button)
   _button_value("controller_button", button, true, joystick)
 end
 
-function ev.gamepadreleased()
+function ev.gamepadreleased(joystick, button)
   _button_value("controller_button", button, false, joystick)
 end
 
