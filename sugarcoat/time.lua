@@ -12,7 +12,7 @@ local _real_frame_time_buffer = {}
 local _real_frame_time_idx = 0
 
 local function init_time()
-  _initial_time = os.clock()
+  _initial_time = love.timer.getTime()--os.clock()
   _last_time = 0
   _delta_time = 0
   
@@ -60,7 +60,7 @@ end
 
 
 local function t()
-  return os.clock() - _initial_time
+  return love.timer.getTime() - _initial_time
 end
 local time = t
 

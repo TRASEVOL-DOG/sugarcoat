@@ -98,9 +98,14 @@ end
 
 local function spr(s, x, y, w, h, flip_x, flip_y)
   s, x, y = s or 0, x or 0, y or 0
-  w, h = (w or 1) * _D.spsh_gw, (h or 1) * _D.spsh_gh
   
-  s = flr(s)
+  if w then w = flr(w) * _D.spsh_gw
+  else w = _D.spsh_gw end
+  
+  if h then h = flr(h) * _D.spsh_gh
+  else h = _D.spsh_gh end
+  
+  s,x,y = flr(s),flr(x),flr(y)
   
   local sx = (s % _D.spsh_nx) * _D.spsh_gw
   local sy = flr(s / _D.spsh_nx) * _D.spsh_gh
@@ -114,7 +119,13 @@ end
 
 local function aspr(s, x, y, a, w, h, anchor_x, anchor_y, scale_x, scale_y)
   s, x, y = s or 0, x or 0, y or 0
-  w, h = (w or 1) * _D.spsh_gw, (h or 1) * _D.spsh_gh
+  
+  if w then w = flr(w) * _D.spsh_gw
+  else w = _D.spsh_gw end
+  
+  if h then h = flr(h) * _D.spsh_gh
+  else h = _D.spsh_gh end
+  
   anchor_x, anchor_y = anchor_x or 0.5, anchor_y or 0.5
   scale_x, scale_y = scale_x or 1, scale_y or 1
   
@@ -132,6 +143,8 @@ end
 
 local function sspr(sx, sy, sw, sh, dx, dy, dw, dh)
   dw, dh = dw or sw, dh or sh
+  
+  sx, sy, sw, sh, dx, dy, dw, dh = flr(sx), flr(sy), flr(sw), flr(sh), flr(dx), flr(dy), flr(dw), flr(dh)
   
   local quad = love.graphics.newQuad(sx, sy, sw, sh, _D.love_spritesheet:getDimensions())
   
