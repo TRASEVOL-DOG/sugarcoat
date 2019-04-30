@@ -3,7 +3,7 @@ main: chill_snake.lua
 name: Chill Snake
 username: trasevol-dog
 primaryColor: 10d275
-coverImage: thumbnail.png
+coverImage: https://github.com/TRASEVOL-DOG/sugarcoat/commits/master/thumbnail.png
 description: |
  Just chill with Snek! 🍎🐍
  
