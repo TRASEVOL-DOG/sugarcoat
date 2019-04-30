@@ -65,7 +65,7 @@ end
 local function print(str, x, y, c)
   if c then color(c) end
   
-  love.graphics.print(str, x, y)
+  love.graphics.print(str, sugar.maths.flr(x), sugar.maths.flr(y))
 end
 
 local B = require("bit")
@@ -130,6 +130,8 @@ local function pprint(str, x, y, c1, c2, c3)
   if c1 then
     printp_color(c1, c2, c3)
   end
+  
+  x, y = sugar.maths.flr(x), sugar.maths.flr(y)
   
   local ptrn = _D.print_pattern
   
