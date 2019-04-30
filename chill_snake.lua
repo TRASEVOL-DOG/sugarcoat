@@ -1,6 +1,8 @@
 if CASTLE_PREFETCH then
   CASTLE_PREFETCH({
-    "sheet.png"
+    "sheet.png",
+    "jump.wav",
+    "snake.wav"
   })
 end
 
@@ -19,6 +21,9 @@ function love.load()
   set_background_color(15)
   
   load_png("spritesheet", "sheet.png", nil, true)
+  
+  load_sfx("jump.wav", "jump", 1)
+  load_sfx("snake.wav", "snek", 0.5)
   
   define_controls()
   
@@ -158,6 +163,10 @@ function draw_apple()
   
   local s = anim[flr(apple.t / 0.06) % #anim + 1]
   
+  if s == 34 and apple.t % 0.06 < dt() then
+    sfx("jump", nil, nil, 0.9+rnd(0.2))
+  end
+  
   spr(s, apple.x - 8, apple.y - 8, 2, 2)
 end
 
@@ -230,6 +239,10 @@ function draw_snake()
   if t()%4 < 0.25 or t()%7 < 0.25 or t()%13 < 0.25 then
     local v = cos(0.75 + t() * 2)
     aspr(96, head.x, head.y, head.a, 1, 1, 0.5-v, 3.5/8)
+    
+    if t()%1 < dt() then
+      sfx("snek")
+    end
   end
 
   for i = #snake, 1, -1 do

@@ -1,0 +1,13 @@
+---
+main: chill_snake.lua
+name: Chill Snake
+username: trasevol-dog
+primaryColor: 10d275
+coverImage: thumbnail.png
+description: |
+ Just chill with Snek! 🍎🐍
+ 
+ Use WASD, arrow keys, controller left-stick, D-pad, and/or mouse click to move around.
+ 
+ This is the example game for the library 'Sugarcoat' at github.com/TRASEVOL-DOG/sugarcoat!
+ 

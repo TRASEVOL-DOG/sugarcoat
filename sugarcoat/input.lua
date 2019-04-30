@@ -301,10 +301,10 @@ local function _button_press_state(type, key, state, controller)
   if not butts then return end
   
   for _,butt in pairs(butts) do
-    if not controller or controller == butt.player.controller then
+    --if not controller or controller == butt.player.controller then
       butt.state = state
       butt.value = state and 1 or 0
-    end
+    --end
   end
 end
 
@@ -357,15 +357,18 @@ function ev.wheelmoved(x, y)
 end
 
 function ev.gamepadaxis(joystick, axis, value)
-  _button_value("controller_axis", axis, value, joystick)
+  local v = sugar.maths.sgn(value) * sugar.maths.mid((sugar.maths.abs(value) - 0.15) / 0.7, 0, 1)
+  _button_value("controller_axis", axis, v, joystick)
 end
 
 function ev.gamepadpressed(joystick, button)
-  _button_value("controller_button", button, true, joystick)
+  _button_press_state("controller_button", button, true, joystick)
+  sugar.debug.log(button.." press.")
 end
 
 function ev.gamepadreleased(joystick, button)
-  _button_value("controller_button", button, false, joystick)
+  _button_press_state("controller_button", button, false, joystick)
+  sugar.debug.log(button.." release.")
 end
 
 

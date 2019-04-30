@@ -71,6 +71,8 @@ function love.draw()
 end
 ```
 
+Check out **[chill_snake.lua](/chill_snake.lua)** for a much more complete example!
+
 Have fun!
 
 ---
