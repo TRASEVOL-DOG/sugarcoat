@@ -75,7 +75,7 @@ Have fun!
 
 ---
 
-Here is the list of all the available packages and their functions:
+Here is an overview of all the available packages and their functions:
 _(Packages have links to more detailed documentation)_
 
 * [`sugar`](/doc/sugar.md#sugar)
@@ -99,6 +99,7 @@ _(Packages have links to more detailed documentation)_
   - [`gfx`](/doc/gfx.md#sugar-gfx)
     - `init_gfx(window_name, w, h, scale)`
     - `shutdown_gfx()`
+    - `half_flip()`
     - `flip()`
     - `camera(x, y)`
     - `camera_move(dx, dy)`
@@ -160,6 +161,7 @@ _(Packages have links to more detailed documentation)_
     - `screen_get_render_stretch()`
     - `screen_get_render_integer_scale()`
     - `screen_get_resizeable()`
+    - `set_background_color(c)`
     - `window_size(w, h)`
     
   - [`input`](/doc/input.md#sugar-input)

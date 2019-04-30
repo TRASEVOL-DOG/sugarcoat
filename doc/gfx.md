@@ -64,6 +64,7 @@
   - [`screen_get_render_stretch()`](#sugargfx-screen_get_render_stretch-)
   - [`screen_get_render_integer_scale()`](#sugargfx-screen_get_render_integer_scale-)
   - [`screen_get_resizeable()`](#sugargfx-screen_get_resizeable-)
+  - [`set_background_color(c)`](#sugargfx-set_background_color-c)
   - [`window_size(w, h)`](#sugargfx-window_size-w-h)
 
 &#8202;
@@ -482,6 +483,12 @@ The default font in Sugarcoat is TeapotPro by [Eeve Somepx](https://twitter.com/
 
 #### `sugar.gfx. screen_get_resizeable ()`
 - Returns whether the simulated screen is resizeable.
+
+&#8202;
+
+#### `sugar.gfx. set_background_color ([c])`
+- Changes the window color around the simulated screen to the color `c` in the palette.
+- If `c` isn't set, the window color is set to black. (#000000)
 
 &#8202;
 

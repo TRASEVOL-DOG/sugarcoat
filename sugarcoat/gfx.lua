@@ -267,6 +267,15 @@ local function shutdown_gfx()
 end
 
 
+local _bg_color = {0,0,0}
+local function _clear_window()
+  local ocanv = love.graphics.getCanvas()
+  
+  love.graphics.setCanvas()
+  love.graphics.clear(unpack(_bg_color))
+  
+  love.graphics.setCanvas(ocanv)
+end
 
 local function screen_render_stretch(enable)
   if enable then
@@ -310,7 +319,7 @@ local function screen_resize(w, h, resize_window)
   if resize_window then
     sugar.gfx.window_size(w * _D.window_scale, h * _D.window_scale)
   end
-  
+    
   if not _D.screen_resizeable then
     sugar.gfx.update_screen_size()
   end
@@ -363,6 +372,8 @@ local function update_screen_size()
     _D.screen_x = (win_w - _D.screen_sca_x * scr_w) * 0.5
     _D.screen_y = (win_h - _D.screen_sca_y * scr_h) * 0.5
   end
+  
+  _clear_window()
 
   if sugar.on_resize then
     sugar.on_resize()
@@ -399,10 +410,21 @@ local function screen_scale()
   return _D.screen_sca_x, _D.screen_sca_y
 end
 
+local function set_background_color(c)
+  if not c then
+    _bg_color = {0, 0, 0}
+  else
+    _bg_color = _D.palette_norm[c]
+  end
+
+  _clear_window()
+end
 
 
 local function half_flip()
   local active_canvas = love.graphics.getCanvas()
+  
+  _clear_window()
   
   if active_canvas then
     local o_r, o_g, o_b = love.graphics.getColor()
@@ -410,6 +432,7 @@ local function half_flip()
     love.graphics.setColor(1,1,1,1)
     love.graphics.setCanvas()
     love.graphics.origin()
+    --love.graphics.clear(_bg_color)
     
     _D.use_index_color_shader()
     
@@ -427,6 +450,8 @@ end
 local function flip()
   local active_canvas = love.graphics.getCanvas()
   
+  _clear_window()
+  
   if active_canvas then
     local ocol = love.graphics.getColor()
   
@@ -435,7 +460,6 @@ local function flip()
     love.graphics.origin()
     
     _D.use_index_color_shader()
-    
     local screen_canvas = _D.surf_list[_D.screen]
     love.graphics.draw(screen_canvas, _D.screen_x, _D.screen_y, 0, _D.screen_sca_x, _D.screen_sca_y)
 
@@ -969,6 +993,7 @@ local gfx = {
   screen_w                       = screen_w,
   screen_h                       = screen_h,
   screen_scale                   = screen_scale,
+  set_background_color           = set_background_color,
   
   half_flip                      = half_flip,
   flip                           = flip,
