@@ -14,6 +14,7 @@ local _real_frame_time_idx = 0
 local function init_time()
   _initial_time = os.clock()
   _last_time = 0
+  _delta_time = 0
   
   for i = 0,15 do
     _frame_time_buffer[i] = 0
