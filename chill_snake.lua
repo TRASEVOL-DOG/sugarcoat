@@ -136,8 +136,8 @@ function update_apple()
   apple.x = apple.x + apple.vx * dt()
   apple.y = apple.y + apple.vy * dt()
   
-  apple.vx = apple.vx * 0.5
-  apple.vy = apple.vy * 0.5
+  apple.vx = lerp(apple.vx, 0, dt() * 15)
+  apple.vy = lerp(apple.vy, 0, dt() * 15)
   
   -- controlling game space borders
   local hw, hh = 4, 1
