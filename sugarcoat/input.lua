@@ -193,6 +193,7 @@ local function _get_button(id, player)
       return nil
     end
   else
+    player = 0
     p = _players[0]
   end
   
