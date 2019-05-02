@@ -33,12 +33,17 @@ local function arrange_call(v, before, after)
       old_love.graphics.setCanvas(active_canvas)
     end
     
-    if before then before() end
+    if before then before(...) end
     
-    local args = {...}
-    local r = {pcall(function() v(unpack(args)) end)}
+    local r
+    if v then
+      local args = {...}
+      r = {pcall(function() v(unpack(args)) end)}
+    else
+      r = {true}
+    end
     
-    if after then after() end
+    if after then after(...) end
     
     active_canvas = old_love.graphics.getCanvas()
     old_love.graphics.setCanvas()
@@ -54,7 +59,7 @@ end
 love = setmetatable({}, {
   __index = old_love,
   __newindex = function(t, k, v)
-    if type(v) == "function" then
+    if type(v) == "function" or v == nil then
       if k == "draw" then
         old_love[k] = arrange_call(v, nil, sugar.gfx.half_flip)
         
