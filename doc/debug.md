@@ -6,6 +6,7 @@ If you are using Castle, the logs will also appear in the development console.
 - Contents:
   - [`start_log(file_name)`](#sugardebug-start_log-file_name--logtxt)
   - [`end_log()`](#sugardebug-end_log-)
+  - [`catch_logs(foo)`](#sugardebug-catch_logs-foo)
   - [`log(str)`](#sugardebug-log-str)
   - [`w_log(str)`](#sugardebug-w_log-str)
   - [`r_log(str)`](#sugardebug-r_log-str)
@@ -27,6 +28,13 @@ If you are using Castle, the logs will also appear in the development console.
 #### `sugar.debug. end_log ()`
 - Closes the log.
 - Is called automatically on shutdown.
+
+&#8202;
+
+#### `sugar.debug. catch_logs (foo)`
+- The function `foo` will be called every time a new line appears in the log, with that new line's content as a string argument.
+- Can be useful to draw log lines on-screen.
+- /!\ Do not call any of the logging functions inside `foo` or else **an infinite loop will occur**.
 
 &#8202;
 

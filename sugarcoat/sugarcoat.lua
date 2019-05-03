@@ -79,6 +79,23 @@ love = setmetatable({}, {
 })
 
 
+local _dont_arrange = {
+  getVersion           = true,
+  hasDeprecationOutput = true,
+  isVersionCompatible  = true,
+  setDeprecationOutput = true,
+  run                  = true,
+  errorhandler         = true
+}
+local _prev_exist = {}
+
+for k,v in pairs(old_love) do
+  if type(v) == "function" and not _dont_arrange[k] then
+    _prev_exist[k] = v
+  end
+end
+
+
 require("sugarcoat/utility")
 require("sugarcoat/debug")
 require("sugarcoat/maths")
@@ -90,16 +107,13 @@ require("sugarcoat/input")
 require("sugarcoat/audio")
 require("sugarcoat/core")
 
+for k,v in pairs(_prev_exist) do
+  love[k] = v
+end
+
 local function quit()
   sugar.shutdown_sugar()
 end
 
 love.quit = quit
 events.quit = quit
-
-for k,e in pairs(events) do
-  old_love[k] = e
-end
-
-
-

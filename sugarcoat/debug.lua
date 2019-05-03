@@ -17,11 +17,20 @@ local function end_log()
   logfile:close()
 end
 
+local log_foo = nil
+local function catch_logs(foo)
+  log_foo = foo
+end
+
 local function _log(prefix, str)
   str = prefix.." "..str
   
   if logfile then
     logfile:write(str.."\r\n")
+  end
+  
+  if log_foo then
+    log_foo(str)
   end
   
   if castle then
@@ -73,6 +82,8 @@ end
 sugar.debug = {
   start_log       = start_log,
   end_log         = end_log,
+  
+  catch_logs      = catch_logs,
   
   log             = log,
   w_log           = w_log,

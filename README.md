@@ -89,6 +89,7 @@ _(Packages have links to more detailed documentation)_
   - [`debug`](/doc/debug.md#sugar-debug)
     - `start_log(file_name)`
     - `end_log()`
+    - `catch_logs(foo)`
     - `log(str)`
     - `w_log(str)`
     - `r_log(str)`

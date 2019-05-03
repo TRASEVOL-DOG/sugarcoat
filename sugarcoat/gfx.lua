@@ -319,7 +319,7 @@ local function screen_resize(w, h, resize_window)
   if resize_window then
     sugar.gfx.window_size(w * _D.window_scale, h * _D.window_scale)
   end
-    
+  
   if not _D.screen_resizeable then
     sugar.gfx.update_screen_size()
   end
@@ -337,7 +337,7 @@ local function update_screen_size()
     local nw = sugar.maths.flr(win_w / scale)
     local nh = sugar.maths.flr(win_h / scale)
   
-    if nw ~= scr_w and nh ~= scr_h then
+    if nw ~= scr_w or nh ~= scr_h then
       sugar.gfx.screen_resize(nw, nh, false)
     end
     
