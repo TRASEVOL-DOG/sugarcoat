@@ -320,17 +320,17 @@ local function _button_value(type, key, value, controller)
 end
 
 local ev = {}
-function events.keypressed(key, scancode)
+function ev.keypressed(key, scancode)
   _button_press_state("keyboard", key, true)
   _button_press_state("keyboard_scancode", scancode, true)
 end
 
-function events.keyreleased(key, scancode)
+function ev.keyreleased(key, scancode)
   _button_press_state("keyboard", key, false)
   _button_press_state("keyboard_scancode", scancode, false)
 end
 
-function events.mousemoved(x, y, dx, dy)
+function ev.mousemoved(x, y, dx, dy)
   _button_value("mouse_position", "x", (x - _D.screen_x) / _D.screen_sca_x)
   _button_value("mouse_position", "y", (y - _D.screen_y) / _D.screen_sca_y)
   _button_value("mouse_position", "dx", dx / _D.screen_sca_x)
@@ -338,7 +338,7 @@ function events.mousemoved(x, y, dx, dy)
 end
 
 local _mouse_buttons = {"lb", "rb", "mb", "x1", "x2"}
-function events.mousepressed(x, y, b)
+function ev.mousepressed(x, y, b)
   if b < 6 then
     _button_press_state("mouse_button", _mouse_buttons[b], true)
   end
