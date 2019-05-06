@@ -442,7 +442,6 @@ local function half_flip()
     _D.reset_shader()
 
     love.graphics.setColor(_D.love_color)
-    love.graphics.translate(-_flr(_D.cam_x)+0.5, -_flr(_D.cam_y)+0.5)
   end
   
   love.graphics.setCanvas(active_canvas)
@@ -465,7 +464,6 @@ local function flip()
     _D.reset_shader()
     
     love.graphics.setColor(_D.love_color)
-    love.graphics.translate(-_flr(_D.cam_x)+0.5, -_flr(_D.cam_y)+0.5)
   end
   
   love.graphics.present()
@@ -483,7 +481,7 @@ local function camera(x, y)
   y = y or 0
   
   love.graphics.origin()
-  love.graphics.translate(-_flr(x)+0.5, -_flr(y)+0.5)
+  love.graphics.translate(-_flr(x), -_flr(y))
   
   _D.cam_x = x
   _D.cam_y = y
@@ -494,7 +492,7 @@ local function camera_move(dx, dy)
   _D.cam_y = _D.cam_y + dy
   
   love.graphics.origin()
-  love.graphics.translate(-_flr(_D.cam_x)+0.5, -_flr(_D.cam_y)+0.5)
+  love.graphics.translate(-_flr(_D.cam_x), -_flr(_D.cam_y))
 end
 
 local function get_camera()
@@ -570,7 +568,7 @@ local cls = clear
 local function rectfill(xa, ya, xb, yb, c)
   if c then color(c) end
   
-  xa,xb,ya,yb = _flr(xa), _flr(xb), _flr(ya), _flr(yb)
+  xa,xb,ya,yb = _flr(xa)+0.5, _flr(xb)+0.5, _flr(ya)+0.5, _flr(yb)+0.5
   
   if xa > xb then xa,xb = xb,xa end
   if ya > yb then ya,yb = yb,ya end
@@ -581,7 +579,7 @@ end
 local function rect(xa, ya, xb, yb, c)
   if c then color(c) end
   
-  xa,xb,ya,yb = _flr(xa), _flr(xb), _flr(ya), _flr(yb)
+  xa,xb,ya,yb = _flr(xa)+0.5, _flr(xb)+0.5, _flr(ya)+0.5, _flr(yb)+0.5
   
   love.graphics.rectangle("line", xa, ya, xb-xa, yb-ya)
 end
@@ -589,38 +587,38 @@ end
 local function circfill(x, y, r, c)
   if c then color(c) end
   
-  love.graphics.circle("fill", _flr(x), _flr(y), _flr(r)+0.45)
+  love.graphics.circle("fill", _flr(x)+0.5, _flr(y)+0.5, _flr(r)+0.45)
 end
 
 local function circ(x, y, r, c)
   if c then color(c) end
   
-  love.graphics.circle("line", _flr(x), _flr(y), _flr(r)+0.45)
+  love.graphics.circle("line", _flr(x)+0.5, _flr(y)+0.5, _flr(r)+0.45)
 end
 
 local function trifill(xa, ya, xb, yb, xc, yc, c)
   if c then color(c) end
   
-  love.graphics.polygon("fill", _flr(xa), _flr(ya), _flr(xb), _flr(yb), _flr(xc), _flr(yc))
+  love.graphics.polygon("fill", _flr(xa)+0.5, _flr(ya)+0.5, _flr(xb)+0.5, _flr(yb)+0.5, _flr(xc)+0.5, _flr(yc)+0.5)
 end
 
 local function tri(xa, ya, xb, yb, xc, yc, c)
   if c then color(c) end
   
-  love.graphics.polygon("line", _flr(xa), _flr(ya), _flr(xb), _flr(yb), _flr(xc), _flr(yc))
+  love.graphics.polygon("line", _flr(xa)+0.5, _flr(ya)+0.5, _flr(xb)+0.5, _flr(yb)+0.5, _flr(xc)+0.5, _flr(yc)+0.5)
 end
 
 local function line(xa, ya, xb, yb, c)
   if c then color(c) end
   
 --  love.graphics.line(xa, ya, xb, yb)
-  love.graphics.line(_flr(xa), _flr(ya), _flr(xb), _flr(yb))
+  love.graphics.line(_flr(xa)+0.5, _flr(ya)+0.5, _flr(xb)+0.5, _flr(yb)+0.5)
 end
 
 local function pset(x, y, c)
   if c then color(c) end
   
-  love.graphics.points(_flr(x), _flr(y))
+  love.graphics.points(_flr(x)+0.5, _flr(y)+0.5)
 end
 
 

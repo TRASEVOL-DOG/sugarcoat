@@ -62,10 +62,11 @@ local function str_px_width(str, font)
   return fnt:getWidth(str)
 end
 
+local _flr = math.floor
 local function print(str, x, y, c)
   if c then color(c) end
   
-  love.graphics.print(str, sugar.maths.flr(x), sugar.maths.flr(y))
+  love.graphics.print(str, _flr(x)+0.5, _flr(y)+0.5)
 end
 
 local B = require("bit")
@@ -131,7 +132,7 @@ local function pprint(str, x, y, c1, c2, c3)
     printp_color(c1, c2, c3)
   end
   
-  x, y = sugar.maths.flr(x), sugar.maths.flr(y)
+  x, y = _flr(x)+0.5, _flr(y)+0.5
   
   local ptrn = _D.print_pattern
   

@@ -49,7 +49,7 @@ function love.update()
 end
 
 function love.draw()
-  camera()
+--  camera()
 
   color(0)
   cls()
