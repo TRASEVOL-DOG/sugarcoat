@@ -9,7 +9,10 @@ require("sugarcoat/text")
 
 local _D = require("sugarcoat/gfx_vault")
 local events = require("sugarcoat/sugar_events")
+local _flr = math.floor
 
+
+local _index_colors = {}
 
 local function _load_shaders()
   local shader_code = {
@@ -427,21 +430,19 @@ local function half_flip()
   _clear_window()
   
   if active_canvas then
-    local o_r, o_g, o_b = love.graphics.getColor()
-    
     love.graphics.setColor(1,1,1,1)
     love.graphics.setCanvas()
     love.graphics.origin()
-    --love.graphics.clear(_bg_color)
-    
+
     _D.use_index_color_shader()
     
     local screen_canvas = _D.surf_list[_D.screen]
     love.graphics.draw(screen_canvas, _D.screen_x, _D.screen_y, 0, _D.screen_sca_x, _D.screen_sca_y)
 
     _D.reset_shader()
-    
-    love.graphics.setColor(o_r, o_g, o_b, 1)
+
+    love.graphics.setColor(_D.love_color)
+    love.graphics.translate(-_flr(_D.cam_x)+0.5, -_flr(_D.cam_y)+0.5)
   end
   
   love.graphics.setCanvas(active_canvas)
@@ -453,8 +454,6 @@ local function flip()
   _clear_window()
   
   if active_canvas then
-    local ocol = love.graphics.getColor()
-  
     love.graphics.setColor(1,1,1,1)
     love.graphics.setCanvas()
     love.graphics.origin()
@@ -465,7 +464,8 @@ local function flip()
 
     _D.reset_shader()
     
-    love.graphics.setColor(ocol)
+    love.graphics.setColor(_D.love_color)
+    love.graphics.translate(-_flr(_D.cam_x)+0.5, -_flr(_D.cam_y)+0.5)
   end
   
   love.graphics.present()
@@ -483,7 +483,7 @@ local function camera(x, y)
   y = y or 0
   
   love.graphics.origin()
-  love.graphics.translate(-sugar.maths.flr(x), -sugar.maths.flr(y))
+  love.graphics.translate(-_flr(x)+0.5, -_flr(y)+0.5)
   
   _D.cam_x = x
   _D.cam_y = y
@@ -494,7 +494,7 @@ local function camera_move(dx, dy)
   _D.cam_y = _D.cam_y + dy
   
   love.graphics.origin()
-  love.graphics.translate(-sugar.maths.flr(_D.cam_x), -sugar.maths.flr(_D.cam_y))
+  love.graphics.translate(-_flr(_D.cam_x)+0.5, -_flr(_D.cam_y)+0.5)
 end
 
 local function get_camera()
@@ -533,12 +533,7 @@ local function color(i)
 
   i = i % _D.palette_size
   
-  _D.love_color = {
-    (sugar.maths.flr(i) % 10) /10,
-    (sugar.maths.flr(i/10) % 10) /10,
-    (sugar.maths.flr(i/100) % 10) /10,
-    1.0
-  }
+  _D.love_color = _index_colors[i]
   
   love.graphics.setColor(_D.love_color)
   
@@ -567,12 +562,7 @@ end
 
 
 local function clear(c)
-  local col = _D.palette_norm[c or 0]
-  love.graphics.setColor(1,1,1,1)
-  
-  love.graphics.clear(unpack(col))
-  
-  color(c or 0)
+  love.graphics.clear(_index_colors[c or 0])
 end
 
 local cls = clear
@@ -580,11 +570,18 @@ local cls = clear
 local function rectfill(xa, ya, xb, yb, c)
   if c then color(c) end
   
-  love.graphics.rectangle("fill", xa-1, ya-1, xb-xa+1, yb-ya+1)
+  xa,xb,ya,yb = _flr(xa), _flr(xb), _flr(ya), _flr(yb)
+  
+  if xa > xb then xa,xb = xb,xa end
+  if ya > yb then ya,yb = yb,ya end
+
+  love.graphics.rectangle("fill", xa, ya, xb-xa+1, yb-ya+1)
 end
 
 local function rect(xa, ya, xb, yb, c)
   if c then color(c) end
+  
+  xa,xb,ya,yb = _flr(xa), _flr(xb), _flr(ya), _flr(yb)
   
   love.graphics.rectangle("line", xa, ya, xb-xa, yb-ya)
 end
@@ -592,37 +589,38 @@ end
 local function circfill(x, y, r, c)
   if c then color(c) end
   
-  love.graphics.circle("fill",x,y,r)
+  love.graphics.circle("fill", _flr(x), _flr(y), _flr(r)+0.45)
 end
 
 local function circ(x, y, r, c)
   if c then color(c) end
   
-  love.graphics.circle("line",x,y,r)
+  love.graphics.circle("line", _flr(x), _flr(y), _flr(r)+0.45)
 end
 
 local function trifill(xa, ya, xb, yb, xc, yc, c)
   if c then color(c) end
   
-  love.graphics.polygon("fill", xa, ya, xb, yb, xc, yc)
+  love.graphics.polygon("fill", _flr(xa), _flr(ya), _flr(xb), _flr(yb), _flr(xc), _flr(yc))
 end
 
 local function tri(xa, ya, xb, yb, xc, yc, c)
   if c then color(c) end
   
-  love.graphics.polygon("line", xa, ya, xb, yb, xc, yc)
+  love.graphics.polygon("line", _flr(xa), _flr(ya), _flr(xb), _flr(yb), _flr(xc), _flr(yc))
 end
 
 local function line(xa, ya, xb, yb, c)
   if c then color(c) end
   
-  love.graphics.line(xa, ya, xb, yb)
+--  love.graphics.line(xa, ya, xb, yb)
+  love.graphics.line(_flr(xa), _flr(ya), _flr(xb), _flr(yb))
 end
 
 local function pset(x, y, c)
   if c then color(c) end
   
-  love.graphics.points(x, y)
+  love.graphics.points(_flr(x), _flr(y))
 end
 
 
@@ -673,6 +671,16 @@ local function use_palette(plt)
   _D.transparency[0] = 1
   
   _D.palette_size = #_D.palette + 1
+  
+  _index_colors = {}
+  for i = 0, #_D.palette do
+    _index_colors[i] = {
+      (sugar.maths.flr(i) % 10) /10,
+      (sugar.maths.flr(i/10) % 10) /10,
+      (sugar.maths.flr(i/100) % 10) /10,
+      1.0
+    }
+  end
   
   _update_shader_palette()
   

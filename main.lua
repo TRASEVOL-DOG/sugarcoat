@@ -49,6 +49,8 @@ function love.update()
 end
 
 function love.draw()
+  camera()
+
   color(0)
   cls()
 
@@ -92,7 +94,7 @@ function love.draw()
   end
   
   spr(1, btnp(5) and 4, dy)
-  
+
   if btnr(4) then
     aspr(0, px, py, -a, 2, 2, nil, nil, 3, 3)
   elseif btn(4) then
