@@ -28,7 +28,14 @@ end
 
 
 local function load_png(key, file_name, palette, use_as_spritesheet)
-  local image = love.graphics.newImage(file_name)
+  -- load image from file path 
+  -- (unless an "image" type was passed in)
+  local image;
+  if type(file_name) == "string" then
+    image = love.graphics.newImage(file_name)    
+  else
+    image = file_name
+  end
   
   local w, h = image:getDimensions()
   key = sugar.gfx.new_surface(w, h, key)
