@@ -59,6 +59,8 @@ local function load_png(key, file_name, palette, use_as_spritesheet)
   
   sugar.gfx.target(ptarget)
   
+  sugar.gfx.scan_surface(key)
+  
   if use_as_spritesheet then
     spritesheet(key)
   end
@@ -153,7 +155,7 @@ local function sspr(sx, sy, sw, sh, dx, dy, dw, dh)
   _D.reset_shader()
 end
 
-local function spr_sheet(x, y, key)
+local function spr_sheet(key, x, y, dw, dh)
   local canvas
   if key then
     canvas = _D.surf_list[key]
@@ -162,8 +164,32 @@ local function spr_sheet(x, y, key)
   end
 
   _D.use_index_index_shader()
-  love.graphics.draw(canvas, x, y)
+  
+  if dw or dh then
+    local sw, sh = canvas:getDimensions()
+    love.graphics.draw(canvas, x, y, 0, (dw or sw)/sw, (dh or sh)/sh)
+  else
+    love.graphics.draw(canvas, x, y)
+  end
+  
   _D.reset_shader()
+end
+
+local function sget(x, y, surf_key) -- use `scan_surface() first!`
+  local data = _D.surf_data[surf_key or _D.spritesheet]
+  
+  if not data then return 0 end
+  
+  local w, h = data:getDimensions()
+  if x < 0 or y < 0 or x >= w or y >= h then
+    return 0
+  end
+  
+  local r, g, b = data:getPixel(x, y)
+  
+  local n = round(r * 10) + round(g * 10) * 10 + round(b * 10) * 100
+  
+  return n
 end
 
 
@@ -182,7 +208,8 @@ local sprite = {
   spr                  = spr,
   aspr                 = aspr,
   sspr                 = sspr,
-  spr_sheet            = spr_sheet
+  spr_sheet            = spr_sheet,
+  sget                 = sget
 }
 
 sugar.utility.merge_tables(sugar.gfx, sprite)

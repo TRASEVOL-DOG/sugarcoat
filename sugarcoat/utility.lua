@@ -38,7 +38,7 @@ local function all(ar)
   end
 end
 
-local function del(ar,val) for i,v in ipairs(ar) do if v==val then delat(ar,i) return end end end
+local function del(ar,val) for i,v in ipairs(ar) do if v==val then table.remove(ar,i) return end end end
 
 
 local function merge_tables(dst, src) -- merges src's content into dst + returns dst

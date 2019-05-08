@@ -8,7 +8,7 @@ require("sugarcoat/sugarcoat")
 
 local S = sugar.S
 
-S.using_package(S)
+S.using_package(S, true)
 
 local px,py
 local dy
@@ -37,6 +37,8 @@ function love.load()
   
   px, py = 64, 64
   dy = 64
+  
+  log("init done!")
 end
 
 function love.update()

@@ -7,7 +7,7 @@ If you are using Castle, the logs will also appear in the development console.
   - [`start_log(file_name)`](#sugardebug-start_log-file_name--logtxt)
   - [`end_log()`](#sugardebug-end_log-)
   - [`catch_logs(foo)`](#sugardebug-catch_logs-foo)
-  - [`log(str)`](#sugardebug-log-str)
+  - [`log(str)`](#sugardebug-log-str-prefix)
   - [`w_log(str)`](#sugardebug-w_log-str)
   - [`r_log(str)`](#sugardebug-r_log-str)
   - [`assert(condition,str)`](#sugardebug-assert-condition-str)
@@ -38,8 +38,10 @@ If you are using Castle, the logs will also appear in the development console.
 
 &#8202;
 
-#### `sugar.debug. log (str)`
+#### `sugar.debug. log (str, [prefix])`
 - Puts a new line in the log with the information 'str'.
+- If `prefix` is set, prints it in front of `str` instead of the default prefix (` . `).
+- `prefix` can only be up to 3 characters.
 
 &#8202;
 

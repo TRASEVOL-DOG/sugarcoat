@@ -6,10 +6,13 @@ local data = {
   init = false,
   
   surf_list = {},
+  surf_data = {},
   
   palette = {},
   palette_norm = {},
   palette_size = 0,
+  
+  love_color = {1,1,1,1},
   
   screen = "__screen__",
   

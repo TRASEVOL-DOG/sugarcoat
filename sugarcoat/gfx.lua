@@ -469,7 +469,6 @@ local function flip()
   love.graphics.present()
   
   love.graphics.setCanvas(active_canvas)
-  color(_D.color)
 end
 
 
@@ -611,7 +610,6 @@ end
 local function line(xa, ya, xb, yb, c)
   if c then color(c) end
   
---  love.graphics.line(xa, ya, xb, yb)
   love.graphics.line(_flr(xa)+0.5, _flr(ya)+0.5, _flr(xb)+0.5, _flr(yb)+0.5)
 end
 
@@ -621,11 +619,22 @@ local function pset(x, y, c)
   love.graphics.points(_flr(x)+0.5, _flr(y)+0.5)
 end
 
-
-
---local function pget(x, y, c) -- ??
---
---end
+local function pget(x, y) -- use `scan_surface() first!`
+  local data = _D.surf_data[_D.screen]
+  
+  if not data then return 0 end
+  
+  local w, h = data:getDimensions()
+  if x < 0 or y < 0 or x >= w or y >= h then
+    return 0
+  end
+  
+  local r, g, b = data:getPixel(x, y)
+  
+  local n = round(r * 10) + round(g * 10) * 10 + round(b * 10) * 100
+  
+  return n
+end
 
 
 ---- PALETTE ----
@@ -740,6 +749,10 @@ local function surface_size(key)
   end
 end
 
+local function surface_exists(key)
+  return _D.surf_list[key] ~= nil
+end
+
 
 local function target(surf_key)
   if surf_key then
@@ -776,13 +789,56 @@ local function target_h()
 end
 
 
-local function surfshot(surf_key, scale, file_name)
+local function scan_surface(key)
+  key = key or _D.screen
   
+  local surf = _D.surf_list[key]
+  
+  if not surf then
+    r_log("Attempt to scan inexistent surface '"..key.."'.")
+    return
+  end
+  
+  if love.graphics.getCanvas() == surf then
+    love.graphics.setCanvas()
+    _D.surf_data[key] = surf:newImageData()
+    love.graphics.setCanvas(surf)
+  else
+    _D.surf_data[key] = surf:newImageData()
+  end
+end
+
+
+local function surfshot(surf_key, scale, file_name)
+  local surf = _D.surf_list[surf_key or _D.screen]
+  if not surf then
+    sugar.debug.r_log("Attempt to use 'surfshot(...)' on inexistent surface '"..surf_key.."'.")
+  end
+
+  local w, h = surf:getDimensions()
+  local shot = love.graphics.newCanvas(w * scale, h * scale)
+  
+  local active_canvas = love.graphics.getCanvas()
+  
+  love.graphics.setColor(1,1,1,1)
+  love.graphics.setCanvas(shot)
+  love.graphics.origin()
+  
+  _D.use_index_color_shader()
+  love.graphics.draw(surf, 0, 0, 0, scale, scale)
+  _D.reset_shader()
+  
+  love.graphics.setColor(_D.love_color)
+  love.graphics.setCanvas(active_canvas)
+  love.graphics.translate(-_flr(_D.cam_x), -_flr(_D.cam_y))
+  
+  shot:newImageData():encode("png", file_name)
 end
 
 
 ---- COLORS ----
 
+--local B = require("bit")
 --uint8_t  get_color_r(uint32_t color){ return (color >> 16) & 0xff; }
 --uint8_t  get_color_g(uint32_t color){ return (color >> 8) & 0xff; }
 --uint8_t  get_color_b(uint32_t color){ return color & 0xff; }
@@ -1023,6 +1079,7 @@ local gfx = {
   tri                            = tri,
   line                           = line,
   pset                           = pset,
+  pget                           = pget,
   
   use_palette                    = use_palette,
   get_palette                    = get_palette,
@@ -1031,12 +1088,17 @@ local gfx = {
   new_surface                    = new_surface,
   delete_surface                 = delete_surface,
   surface_size                   = surface_size,
+  surface_exists                 = surface_exists,
   
   target                         = target,
   get_target                     = get_target,
   target_size                    = target_size,
   target_w                       = target_w,
   target_h                       = target_h,
+  
+  scan_surface                   = scan_surface,
+  
+  surfshot                       = surfshot,
   
   palettes                       = palettes
 }

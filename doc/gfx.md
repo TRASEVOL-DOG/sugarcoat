@@ -22,6 +22,7 @@
   - [`tri(xa, ya, xb, yb, xc, yc, c)`](#sugargfx-tri-xa-ya-xb-yb-xc-yc-c)
   - [`line(xa, ya, xb, yb, c)`](#sugargfx-line-xa-ya-xb-yb-c)
   - [`pset(x, y, c)`](#sugargfx-pset-x-y-c)
+  - [`pget(x, y)`](#sugargfx-pget-x-y)
   - [`use_palette(plt)`](#sugargfx-use_palette-plt)
   - [`get_palette()`](#sugargfx-get_palette-)
   - [`palette_len()`](#sugargfx-palette_len-)
@@ -29,11 +30,14 @@
   - [`load_png(key, file_name, palette, use_as_spritesheet)`](#sugargfx-load_png-key-file_name-palette-use_as_spritesheet)
   - [`delete_surface(key)`](#sugargfx-delete_surface-key)
   - [`surface_size(key)`](#sugargfx-surface_size-key)
+  - [`surface_exists(key)`](#sugargfx-surface_exists-key)
+  - [`surfshot(surf_key, scale, file_name)`](#sugargfx-surfshot-surf_key-scale-file_name)
   - [`target(surf_key)`](#sugargfx-target-surf_key)
   - [`get_target()`](#sugargfx-get_target-)
   - [`target_size()`](#sugargfx-target_size-)
   - [`target_w()`](#sugargfx-target_w-)
   - [`target_h()`](#sugargfx-target_h-)
+  - [`scan_surface(surf_key)`](#sugargfx-scan_surface-surf_key)
   - [`palettes`](#sugargfx-palettes)
   - [`spritesheet(surf_key)`](#sugargfx-spritesheet-surf_key)
   - [`get_spritesheet()`](#sugargfx-get_spritesheet-)
@@ -42,7 +46,8 @@
   - [`spr(s, x, y, w, h, flip_x, flip_y)`](#sugargfx-spr-s-x-y-w--1-h--1-flip_x-flip_y)
   - [`aspr(s, x, y, a, w, h, anchor_x, anchor_y, scale_x, scale_y)`](#sugargfx-aspr-s-x-y-a-w--1-h--1-anchor_x--05-anchor_y--05-scale_x-scale_y)
   - [`sspr(sx, sy, sw, sh, dx, dy, dw, dh)`](#sugargfx-sspr-sx-sy-sw-sh-dx-dy-dw--sw-dh--sh)
-  - [`spr_sheet(x, y, key)`](#sugargfx-spr_sheet-x-y-key)
+  - [`spr_sheet(key, x, y, dw, dh)`](#sugargfx-spr_sheet-key-x-y-dw-dh)
+  - [`sget(x, y, key)`](#sugargfx-sget-x-y-key)
   - [`load_font(ttf_filepath, size, key, use_it)`](#sugargfx-load_font-ttf_filepath-size-key-use_it)
   - [`delete_font(key)`](#sugargfx-delete_font-key)
   - [`use_font(key)`](#sugargfx-use_font-key)
@@ -196,6 +201,12 @@
 
 &#8202;
 
+#### `sugar.gfx. pget (x, y)`
+- Gets the palette index of the pixel at {x; y} on the screen.
+- Changes made to the screen will not be reflected until you call [`scan_surface()`](#sugargfx-scan_surface-surf_key).
+
+&#8202;
+
 ---
 
 #### `sugar.gfx. use_palette (plt)`
@@ -254,6 +265,7 @@
 - The file will be converted to an indexed surface using the `palette`. If `palette` isn't set, the currently used palette will be used.
 - The surface becomes the new spritesheet if `use_as_spritesheet` is true.
 - The program will crash if `file_name` cannot be found.
+- If used in Castle, `file_name` may be an URL to a picture hosted online.
 
 &#8202;
 
@@ -266,6 +278,18 @@
 - Returns:
   - width of the surface
   - height of the surface
+
+&#8202;
+
+#### `sugar.gfx. surface_exists (key)`
+- Returns `true` if there is a surface for `key`, returns `false` otherwise.
+
+&#8202;
+
+#### `sugar.gfx. surfshot (surf_key, scale, file_name)`
+- Saves the surface `surf_key`, upscaled by `scale`, as `file_name`, as a PNG.
+- The picture will be saved locally, at `%appdata%\LOVE\[project  (or Castle)]` if on Windows, and at `/Users/user/Library/Application Support/LOVE/[project  (or castle)]` if on Mac.
+- If `surf_key` is `nil`, saves the screen surface.
 
 &#8202;
 
@@ -295,6 +319,14 @@
 
 #### `sugar.gfx. target_h ()`
 - Returns the height of the current target.
+
+&#8202;
+
+#### `sugar.gfx. scan_surface([surf_key])`
+- Updates the pixel info to be querried with `pget(...)` and `sget(...)`.
+- If `surf_key` is set, updates the info for the surface `surf_key`.
+- If `surf_key` isn't set, updates the info for the screen surface.
+- This function can be slow. Avoid using it more than a few times per frame.
 
 &#8202;
 
@@ -348,9 +380,17 @@ Note that the spritesheet drawing functions will fail if no spritesheet surface 
 
 &#8202;
 
-#### `sugar.gfx. spr_sheet (x, y, [key])`
-- Draws the whole spritesheet at the coordinates {x; y}.
-- If `key` is set, draws the surface `key` instead of the spritesheet.
+#### `sugar.gfx. spr_sheet (key, x, y, [dw, dh])`
+- Draws the entire surface `key` at the coordinates {x; y}.
+- If `key` is `nil`, draws the current spritesheet instead.
+- If `dw` and `dh` are set, resizes the surface to that size.
+
+&#8202;
+
+#### `sugar.gfx. sget (x, y, [surf_key])`
+- Gets the palette index of the pixel at {x; y} on the spritesheet.
+- If `surf_key` is set, gets the pixel from the surface `key` instead.
+- Changes made to the surface will not be reflected by `sget(...)` until you call [`scan_surface(surf_key)`](#sugargfx-scan_surface-surf_key).
 
 &#8202;
 

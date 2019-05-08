@@ -90,7 +90,7 @@ _(Packages have links to more detailed documentation)_
     - `start_log(file_name)`
     - `end_log()`
     - `catch_logs(foo)`
-    - `log(str)`
+    - `log(str, prefix)`
     - `w_log(str)`
     - `r_log(str)`
     - `assert(condition, str)`
@@ -122,6 +122,7 @@ _(Packages have links to more detailed documentation)_
     - `tri(xa, ya, xb, yb, xc, yc, c)`
     - `line(xa, ya, xb, yb, c)`
     - `pset(x, y, c)`
+    - `pget(x, y)`
     - `use_palette(plt)`
     - `get_palette()`
     - `palette_len()`
@@ -129,11 +130,14 @@ _(Packages have links to more detailed documentation)_
     - `load_png(key, file_name, palette, use_as_spritesheet)`
     - `delete_surface(key)`
     - `surface_size(key)`
+    - `surface_exists(key)`
+    - `surfshot(key, scale, file_name)`
     - `target(surf_key)`
     - `get_target()`
     - `target_size()`
     - `target_w()`
     - `target_h()`
+    - `scan_surface(key)`
     - `palettes` [a table]
     - `spritesheet(surf_key)`
     - `get_spritesheet()`
@@ -142,7 +146,8 @@ _(Packages have links to more detailed documentation)_
     - `spr(s, x, y, w, h, flip_x, flip_y)`
     - `aspr(s, x, y, a, w, h, anchor_x, anchor_y, scale_x, scale_y)`
     - `sspr(sx, sy, sw, sh, dx, dy, dw, dh)`
-    - `spr_sheet(x, y, key)`
+    - `spr_sheet(key, x, y)`
+    - `sget(x, y, key)`
     - `load_font(ttf_filepath, size, key, use_it)`
     - `delete_font(key)`
     - `use_font(key)`

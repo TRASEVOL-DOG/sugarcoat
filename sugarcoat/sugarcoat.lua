@@ -37,8 +37,7 @@ local function arrange_call(v, before, after)
     
     local r
     if v then
-      local args = {...}
-      r = {pcall(function() v(unpack(args)) end)}
+      r = {pcall(v, ...)}
     else
       r = {true}
     end
