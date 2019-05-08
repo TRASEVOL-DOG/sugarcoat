@@ -59,7 +59,7 @@ love = setmetatable({}, {
   __index = old_love,
   __newindex = function(t, k, v)
     if type(v) == "function" or v == nil then
-      if k == "draw" then
+      if k == "draw" and not SUGAR_SERVER_MODE then
         old_love[k] = arrange_call(v, nil, sugar.gfx.half_flip)
         
       elseif k == "update" then

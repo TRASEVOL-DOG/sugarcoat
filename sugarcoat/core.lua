@@ -26,10 +26,15 @@ local function init_sugar(window_name, w, h, scale)
     S.debug.log("Running in Castle.")
   end
   
-  S.gfx.init_gfx(window_name, w, h, scale)
-  S.input.init_input()
-  S.time.init_time()
-  S.audio.init_audio()
+  if SUGAR_SERVER_MODE then
+    S.debug.w_log("Running in server mode - no gfx, input or audio.")
+    S.time.init_time()
+  else
+    S.gfx.init_gfx(window_name, w, h, scale)
+    S.input.init_input()
+    S.time.init_time()
+    S.audio.init_audio()
+  end
 
   -- init RNG with local time as seed
   local a, b, c, d, e, f = sugar.time.sys_ltime()
@@ -42,6 +47,12 @@ end
 local function sugar_step()
   S.time.update_time()
   S.input.update_input()
+end
+
+if SUGAR_SERVER_MODE then
+  sugar_step = function()
+    S.time.update_time()
+  end
 end
 
 local function shutdown_sugar()
