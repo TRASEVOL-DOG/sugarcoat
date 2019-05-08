@@ -59,9 +59,11 @@ local function shutdown_sugar()
   S.debug.log("")
   S.debug.log("Initiating shutdown.")
   
-  S.gfx.shutdown_gfx()
-  S.input.shutdown_input()
-  S.audio.shutdown_audio()
+  if not SUGAR_SERVER_MODE then
+    S.gfx.shutdown_gfx()
+    S.input.shutdown_input()
+    S.audio.shutdown_audio()
+  end
 
   S.debug.log("Application ran for "..S.time.t().." seconds.")
 
