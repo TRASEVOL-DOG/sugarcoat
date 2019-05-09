@@ -42,7 +42,7 @@ Here is a very quick example showing some of the basics:
 
 ```lua
 require("sugarcoat/sugarcoat")
-sugar.utility.using_package(sugar.S)
+sugar.utility.using_package(sugar.S, true)
 
 local x = 64
 local y = 64
