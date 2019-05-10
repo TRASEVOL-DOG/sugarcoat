@@ -55,6 +55,31 @@ local function arrange_call(v, before, after)
   end
 end
 
+if SUGAR_SERVER_MODE then
+  arrange_call = function(v, before, after)
+    return function(...)
+      -- wrap before
+      
+      if before then before(...) end
+      
+      local r
+      if v then
+        r = {pcall(v, ...)}
+      else
+        r = {true}
+      end
+      
+      if after then after(...) end
+
+      if r[1] then
+        return r[2]
+      else
+        error(r[2], 0)
+      end
+    end
+  end
+end
+
 love = setmetatable({}, {
   __index = old_love,
   __newindex = function(t, k, v)
