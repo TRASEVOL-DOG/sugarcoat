@@ -151,7 +151,7 @@ Angles in sugarcoat are turn-based, where 1 indicates a full turn. 1 is the equi
 &#8202;
 
 #### `sugar.maths. irnd (n)`
-- Returns a random integer number between `0` *(influded)* and `n` *(excluded)*.
+- Returns a random integer number between `0` *(included)* and `n` *(excluded)*.
 
 &#8202;
 

@@ -146,6 +146,7 @@
 #### `sugar.gfx. palt (c, make_transparent)`
 - Makes the color `c` transparent or not, for sprite operations.
 - `c` is an index in the currently used palette.
+- `0` is transparent by default. Use `palt(0, false)` for the color `0` to be drawn from sprites.
 
 &#8202;
 
