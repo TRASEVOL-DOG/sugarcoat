@@ -500,7 +500,7 @@ end
 
 local function clip(x, y, w, h)
   if x and y then
-    love.graphics.setScissor(flr(x-graphics.camx), flr(y-graphics.camy), w, h)
+    love.graphics.setScissor(flr(x-_D.cam_x), flr(y-_D.cam_y), w, h)
   else
     love.graphics.setScissor()
   end
