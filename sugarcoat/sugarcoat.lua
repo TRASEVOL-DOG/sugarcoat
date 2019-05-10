@@ -102,6 +102,19 @@ love = setmetatable({}, {
   end
 })
 
+if castle then
+  local old_castle = castle
+  castle = setmetatable({}, {
+    __index = old_castle,
+    __newindex = function(t, k, v)
+      if type(v) == "function" or v == nil then
+        old_castle[k] = arrange_call(v)
+      else
+        old_castle[k] = v
+      end
+    end
+  })
+end
 
 local _dont_arrange = {
   getVersion           = true,
