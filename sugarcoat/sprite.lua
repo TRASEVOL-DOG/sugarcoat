@@ -121,8 +121,18 @@ local function spr(s, x, y, w, h, flip_x, flip_y)
   
   local quad = love.graphics.newQuad(sx, sy, w, h, _D.love_spritesheet:getDimensions())
   
+  local scx, scy = 1, 1
+  if flip_x then
+    scx = -1
+    x = x + w
+  end
+  if flip_y then
+    scy = -1
+    y = y + h
+  end
+  
   _D.use_index_index_shader()
-  love.graphics.draw(_D.love_spritesheet, quad, x, y, 0, flipx and -1 or 1, flipy and -1 or 1, 0, 0)
+  love.graphics.draw(_D.love_spritesheet, quad, x, y, 0, scx, scy, 0, 0)
   _D.reset_shader()
 end
 

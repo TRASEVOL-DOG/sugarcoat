@@ -189,7 +189,7 @@ local function _get_button(id, player)
   if player then
     p = _players[player]
     if not p then
-      sugar.debug.r_log("Player "..player.." doesn't exist.")
+      sugar.debug.w_log("Player "..player.." doesn't exist.")
       return nil
     end
   else
@@ -200,7 +200,7 @@ local function _get_button(id, player)
   local butt = p.buttons[id]
   
   if not butt then
-    sugar.debug.r_log("Button "..id.." for player "..player.." isn't registered.")
+    sugar.debug.w_log("Button "..id.." for player "..player.." isn't registered.")
     return nil
   end
   
@@ -265,7 +265,7 @@ local function player_assign_ctrlr(player, controller)
     ctrlr = _controllers[controller]
     
     if not ctrlr then
-      sugar.debug.r_log("Attempt to assign inexistant controller "..controller.." to player "..player..".")
+      sugar.debug.w_log("Attempt to assign inexistant controller "..controller.." to player "..player..".")
     end
   end
   
@@ -276,7 +276,8 @@ local function ctrlr_has_default_bindings(controller)
   local ctrlr = _controllers[controller]
   
   if not ctrlr then
-    sugar.debug.r_log("Attempting to check on bindings for inexistant controller "..controller..".")
+    sugar.debug.w_log("Attempt to check on bindings for inexistant controller "..controller..".")
+    return false
   end
   
   return (ctrlr:getGamepadMapping(love.joystick.GamepadButton.a) ~= nil)
@@ -286,7 +287,8 @@ local function ctrlr_name(controller)
   local ctrlr = _controllers[controller]
   
   if not ctrlr then
-    sugar.debug.r_log("Attempting to name of inexistant controller "..controller..".")
+    sugar.debug.w_log("Attempt to get the name of inexistant controller "..controller..".")
+    return nil
   end
   
   return ctrlr:getName()

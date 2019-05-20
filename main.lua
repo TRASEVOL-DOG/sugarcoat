@@ -95,7 +95,10 @@ function love.draw()
     x = x + str_px_width(c)
   end
   
-  spr(1, btnp(5) and 4, dy)
+  palt(0,false)
+  pal(0,1)
+  
+  spr(1, btnp(5) and 4 or 0, dy)
 
   if btnr(4) then
     aspr(0, px, py, -a, 2, 2, nil, nil, 3, 3)

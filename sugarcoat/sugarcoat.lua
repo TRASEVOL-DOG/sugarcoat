@@ -26,6 +26,8 @@ local events = require("sugarcoat/sugar_events")
 local active_canvas
 local old_love = love
 
+local _debug = debug
+
 local function arrange_call(v, before, after)
   return function(...)
     -- wrap before
@@ -37,7 +39,7 @@ local function arrange_call(v, before, after)
     
     local r
     if v then
-      r = {pcall(v, ...)}
+      r = {xpcall(v, _debug.traceback, ...)}
     else
       r = {true}
     end
@@ -50,6 +52,7 @@ local function arrange_call(v, before, after)
     if r[1] then
       return r[2]
     else
+      r_log(r[2])
       error(r[2], 0)
     end
   end
@@ -64,7 +67,7 @@ if SUGAR_SERVER_MODE then
       
       local r
       if v then
-        r = {pcall(v, ...)}
+        r = {xpcall(v, _debug.traceback, ...)}
       else
         r = {true}
       end
@@ -74,6 +77,7 @@ if SUGAR_SERVER_MODE then
       if r[1] then
         return r[2]
       else
+        r_log(r[2])
         error(r[2], 0)
       end
     end
