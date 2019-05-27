@@ -5,6 +5,7 @@
   - [`sugar_step()`](#sugar-sugar_step-)
   - [`shutdown_sugar()`](#sugar-shutdown_sugar-)
   - [`sys_battery()`](#sugar-sys_battery-)
+  - [`after_render`](#sugar-after_render)
   - [`S`](#sugar-S)
   - [`debug`](#sugar-debug)
   - [`gfx`](#sugar-gfx)
@@ -42,6 +43,14 @@
   - Percents of battery left
   - Whether the system is on battery (true) or if it is plugged in (false)
   - Battery life remaining (in seconds)
+
+&#8202;
+
+#### `sugar. after_render`
+- Is a function callback you can define like so : `function sugar.after_render() --[[...]] end`
+- If it is defined, it will be called automatically every frame, after the simulated screen is rendered to the actual screen. (or to a set canvas)
+- This is intended to be used for post-processing, along with `sugar.gfx.render_to_canvas(...)`, as an alternative to the upcoming shader Sugar system.
+- In this callback, all Sugar drawing functions will have undefined behavior. You should use the Love2D functions instead.
 
 &#8202;
 

@@ -4,6 +4,7 @@
   - [`init_gfx(window_name, w, h, scale)`](#sugargfx-init_gfx-window_name-w-h-scale)
   - [`shutdown_gfx()`](#sugargfx-shutdown_gfx-)
   - [`flip()`](#sugargfx-flip-)
+  - [`render_to_canvas(canvas)`](#sugargfx-render_to_canvas-canvas)
   - [`camera(x, y)`](#sugargfx-camera-x--0-y--0)
   - [`camera_move(dx, dy)`](#sugargfx-camera_move-dx-dy)
   - [`get_camera()`](#sugargfx-get_camera-)
@@ -91,6 +92,13 @@
 #### `sugar.gfx. flip ()`
 - Shows the result of your draw operations on the screen.
 - Is called automatically around `love.draw ()`.
+
+&#8202;
+
+#### `sugar.gfx. render_to_canvas ([canvas])`
+- If set, `canvas` has to be a love2D canvas, built with `love.graphics.newCanvas(...)`.
+- If `canvas` is set, Sugarcoat will draw the simulated screen to this love2D canvas instead of directly to the real screen.
+- This can be used in pair with the `sugar.after_render` callback to do post-processing on Sugarcoat's output.
 
 &#8202;
 

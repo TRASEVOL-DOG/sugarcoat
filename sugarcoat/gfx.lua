@@ -114,15 +114,26 @@ local function _load_shaders()
       
       extern vec3 opal[256];
       extern int swaps[256];
+	  
+	  int Texel_index(Image texture, vec2 coords);
+	  vec4 Texel_color(Image texture, vec2 coords);
       
       vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
       {
-        vec4 col = Texel( texture, texture_coords );
-        
-        int c = int(floor(col.r * 10.0 + 0.5) + floor(col.g * 10.0 + 0.5)*10.0 + floor(col.b * 10.0 + 0.5) * 100.0);
-        
-        return vec4(opal[swaps[c] ], 1.0);
+        return Texel_color(texture, texture_coords);
       }
+	  
+	  int Texel_index(Image texture, vec2 coords)
+	  {
+	    vec4 col = Texel( texture, coords );
+		int c = int(floor(col.r * 10.0 + 0.5) + floor(col.g * 10.0 + 0.5)*10.0 + floor(col.b * 10.0 + 0.5) * 100.0);
+		
+		return swaps[c];
+	  }
+	  
+	  vec4 Texel_color(Image texture, vec2 coords){
+	    return vec4(opal[ Texel_index(texture, coords) ], 1.0);
+	  }
     ]]
   }
   
@@ -270,6 +281,13 @@ local function shutdown_gfx()
 end
 
 
+local _render_target
+local function render_to_canvas(canvas)
+  _render_target = canvas
+  sugar.gfx.update_screen_size()
+end
+
+
 local _bg_color = {0,0,0}
 local function _clear_window()
   local ocanv = love.graphics.getCanvas()
@@ -331,7 +349,13 @@ end
 local function update_screen_size()
   if not _D.init then return end
 
-  local win_w, win_h = sugar.gfx.window_size()
+  local win_w, win_h-- = sugar.gfx.window_size()
+  if _render_target then
+    win_w, win_h = _render_target:getDimensions()
+  else
+    win_w, win_h = sugar.gfx.window_size()
+  end
+  
   local scr_w, scr_h = sugar.gfx.screen_size()
 
   if _D.screen_resizeable then
@@ -431,7 +455,7 @@ local function half_flip()
   
   if active_canvas then
     love.graphics.setColor(1,1,1,1)
-    love.graphics.setCanvas()
+    love.graphics.setCanvas(_render_target)
     love.graphics.origin()
 
     _D.use_index_color_shader()
@@ -440,6 +464,10 @@ local function half_flip()
     love.graphics.draw(screen_canvas, _D.screen_x, _D.screen_y, 0, _D.screen_sca_x, _D.screen_sca_y)
 
     _D.reset_shader()
+	
+	if sugar.after_render then
+	  sugar.after_render()
+	end
 
     love.graphics.setColor(_D.love_color)
   end
@@ -454,7 +482,7 @@ local function flip()
   
   if active_canvas then
     love.graphics.setColor(1,1,1,1)
-    love.graphics.setCanvas()
+    love.graphics.setCanvas(_render_target)
     love.graphics.origin()
     
     _D.use_index_color_shader()
@@ -1041,6 +1069,8 @@ local palettes = {
 local gfx = {
   init_gfx                       = init_gfx,
   shutdown_gfx                   = shutdown_gfx,
+  
+  render_to_canvas               = render_to_canvas,
   
   screen_render_stretch          = screen_render_stretch,
   screen_render_integer_scale    = screen_render_integer_scale,

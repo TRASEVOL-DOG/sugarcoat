@@ -85,6 +85,7 @@ _(Packages have links to more detailed documentation)_
   - `sugar_step()`
   - `shutdown_sugar()`
   - `sys_battery()`
+  - `after_render`
   
   - [`debug`](/doc/debug.md#sugar-debug)
     - `start_log(file_name)`
@@ -104,6 +105,7 @@ _(Packages have links to more detailed documentation)_
     - `shutdown_gfx()`
     - `half_flip()`
     - `flip()`
+    - `render_to_canvas()`
     - `camera(x, y)`
     - `camera_move(dx, dy)`
     - `get_camera()`

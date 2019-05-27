@@ -71,6 +71,8 @@ local function load_png(key, file_name, palette, use_as_spritesheet)
   if use_as_spritesheet then
     spritesheet(key)
   end
+  
+  return key
 end
 
 
