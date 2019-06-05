@@ -27,6 +27,8 @@ local function init_time()
 end
 
 local function update_time()
+  if not _initial_time then return end
+
   local new_time = sugar.time.t()
   _delta_time = new_time - _last_time
   

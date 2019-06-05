@@ -16,9 +16,24 @@ local dy
 function love.load()
   init_sugar("Hello world!", 128, 128, 3)
   
-  screen_render_integer_scale(false)
+--  screen_render_integer_scale(false)
   --screen_render_stretch(true)
   --screen_resizeable(true, 3)
+  
+  screen_shader([[
+    varying vec2 v_vTexcoord;
+    varying vec4 v_vColour;
+    
+    vec4 effect(vec4 color, Image texture, vec2 coords, vec2 screen_coords)
+    {
+      vec4 col = Texel_color(texture, coords);
+      
+      vec2 co = mod(coords * SCREEN_SIZE, 1.0);
+      float k = 1.0 - max(co.x * co.x, co.y * co.y);
+      
+      return (0.75*k + 0.75) * col;
+    }
+  ]])
   
   load_png("spritesheet", "test.png", nil, true)
   
@@ -94,9 +109,6 @@ function love.draw()
     pprint(c, x, y + 3*cos(-a * 2 + i/5))
     x = x + str_px_width(c)
   end
-  
-  palt(0,false)
-  pal(0,1)
   
   spr(1, btnp(5) and 4 or 0, dy)
 

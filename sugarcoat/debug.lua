@@ -108,7 +108,7 @@ sugar.debug = {
   abort           = abort,
   abort_brutal    = abort_brutal,
   
-  write_clipboard = write_clipbaord,
+  write_clipboard = write_clipboard,
   read_clipboard  = read_clipboard
 }
 

@@ -14,6 +14,9 @@ local data = {
   
   love_color = {1,1,1,1},
   
+  shaders = {},
+  shader_code = {},
+  
   screen = "__screen__",
   
   window_scale = 2,
