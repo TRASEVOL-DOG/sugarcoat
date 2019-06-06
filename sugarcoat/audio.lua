@@ -49,7 +49,7 @@ local function load_sfx(file, id, volume)
 end
 
 local function load_music(file, id, volume)
-  local mus = love.audio.newSource(file, "stream")
+  local mus = love.audio.newSource(file, "static")
   
   if id then
     if _music_map[id] then
