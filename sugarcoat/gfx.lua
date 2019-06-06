@@ -14,6 +14,8 @@ local _flr = math.floor
 
 local _index_colors = {}
 local _custom_shader = false
+local _shader_vars = {}
+local _shader_arrays = {}
 
 local function _load_shaders()
   _D.shader_code = {
@@ -113,7 +115,7 @@ local function _update_shader_palette()
   _D.shaders.color_to_index:send("opal", unpack(pal))
   _D.shaders.color_to_index:send("pal_size", #pal)
   
-  if (not _custom_shader) or _D.shaders.index_to_color:hasUniform("PALETTE") then
+  if (not _custom_shader) or _shader_vars["PALETTE"] then
     _D.shaders.index_to_color:send("PALETTE", unpack(pal))
   end
 end
@@ -136,7 +138,7 @@ end
 function _D.use_index_color_shader()
   local shader = _D.shaders.index_to_color
   
-  if (not _custom_shader) or shader:hasUniform("SWAPS") then
+  if (not _custom_shader) or _shader_vars["SWAPS"] then
     shader:send("SWAPS", _D.pltswp_fp[0], unpack(_D.pltswp_fp))
   end
   
@@ -490,6 +492,7 @@ local function _default_screen_shader()
   _update_shader_palette()
   
   _custom_shader = false
+  _shader_vars, _shader_arrays = {}, {}
 end
 
 local function screen_shader(shader_code)
@@ -525,8 +528,20 @@ local function screen_shader(shader_code)
   local status, message = love.graphics.validateShader(true, shader_code)
   if status then
     _D.shaders.index_to_color = love.graphics.newShader(shader_code)
+    
+    _shader_vars, _shader_arrays = {}, {}
+    for var_dec in shader_code:gmatch('extern.-;') do
+      local var = var_dec:match('extern.-%a+.-([%a_]+).-;')
+      local is_array = var_dec:find('%[') ~= nil
+      
+      _shader_vars[var] = true
+      if is_array then
+        _shader_arrays[var] = true
+      end
+    end
+    
     _update_shader_palette()
-    if _D.shaders.index_to_color:hasUniform("SCREEN_SIZE") then
+    if _shader_vars["SCREEN_SIZE"] then
       local w,h = screen_size()
       _D.shaders.index_to_color:send("SCREEN_SIZE", {w, h})
     end
@@ -539,8 +554,8 @@ end
 
 local function screen_shader_input(value_table)
   for key, value in pairs(value_table) do
-    if _D.shaders.index_to_color:hasUniform(key) then
-      if type(value) == "table" then
+    if _shader_vars[key] then
+      if _shader_arrays[key] then
         _D.shaders.index_to_color:send(key, unpack(value))
       else
         _D.shaders.index_to_color:send(key, value)
