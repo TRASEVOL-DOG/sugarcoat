@@ -173,6 +173,8 @@ _(Packages have links to more detailed documentation)_
     - `screen_get_resizeable()`
     - `set_background_color(c)`
     - `window_size(w, h)`
+    - `screen_shader(shader_code)`
+    - `screen_shader_input(value_table)`
     
   - [`input`](/doc/input.md#sugar-input)
     - `init_input()`

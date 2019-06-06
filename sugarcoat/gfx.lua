@@ -504,23 +504,18 @@ local function screen_shader(shader_code)
   -- ADD extern vec2 SCREEN_SIZE
   -- + update on resize
   
-  local pre = "extern vec2 SCREEN_SIZE; extern vec3 PALETTE[256]; extern int SWAPS[256]; int Texel_index(Image texture, vec2 coords); vec4 Texel_color(Image texture, vec2 coords); float _____(); "
+  local pre = "extern vec2 SCREEN_SIZE; extern vec3 PALETTE[256]; extern int SWAPS[256]; int Texel_index(Image texture, vec2 coords); vec4 Texel_color(Image texture, vec2 coords); "
   local after = [[
-    int Texel_index(Image texture, vec2 coords)
-	{
-	  vec4 col = Texel( texture, coords );
-	  int c = int(floor(col.r * 10.0 + 0.5) + floor(col.g * 10.0 + 0.5)*10.0 + floor(col.b * 10.0 + 0.5) * 100.0);
-	
-	  return SWAPS[c];
-	}
-	
-	vec4 Texel_color(Image texture, vec2 coords){
-	  return vec4(PALETTE[ Texel_index(texture, coords) ], 1.0);
-	}
-    
-    float _____(){
-      return SCREEN_SIZE.x;
-    }
+    int Texel_index(Image texture, vec2 coords){
+	    vec4 col = Texel( texture, coords );
+	    int c = int(floor(col.r * 10.0 + 0.5) + floor(col.g * 10.0 + 0.5)*10.0 + floor(col.b * 10.0 + 0.5) * 100.0);
+	  
+	    return SWAPS[c];
+	  }
+	  
+	  vec4 Texel_color(Image texture, vec2 coords){
+	    return vec4(PALETTE[ Texel_index(texture, coords) ], 1.0);
+	  }
   ]]
   
   shader_code = pre..shader_code..after

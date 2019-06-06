@@ -16,7 +16,7 @@ local dy
 function love.load()
   init_sugar("Hello world!", 128, 128, 3)
   
---  screen_render_integer_scale(false)
+  --screen_render_integer_scale(false)
   --screen_render_stretch(true)
   --screen_resizeable(true, 3)
   

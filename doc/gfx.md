@@ -1,77 +1,88 @@
 ## `sugar. gfx`
 
 - Contents:
-  - [`init_gfx(window_name, w, h, scale)`](#sugargfx-init_gfx-window_name-w-h-scale)
-  - [`shutdown_gfx()`](#sugargfx-shutdown_gfx-)
-  - [`flip()`](#sugargfx-flip-)
-  - [`render_to_canvas(canvas)`](#sugargfx-render_to_canvas-canvas)
-  - [`camera(x, y)`](#sugargfx-camera-x--0-y--0)
-  - [`camera_move(dx, dy)`](#sugargfx-camera_move-dx-dy)
-  - [`get_camera()`](#sugargfx-get_camera-)
-  - [`clip(x, y, w, h)`](#sugargfx-clip-x-y-w-h)
-  - [`get_clip()`](#sugargfx-get_clip-)
-  - [`color(i)`](#sugargfx-color-i)
-  - [`pal(ca, cb, flip_level)`](#sugargfx-pal-ca-cb-flip_level--false)
-  - [`palt(c, make_transparent)`](#sugargfx-palt-c-make_transparent)
-  - [`clear(c)`](#sugargfx-clear-c--0)
-  - [`cls(c)`](#sugargfx-cls-c--0)
-  - [`rectfill(xa, ya, xb, yb, c)`](#sugargfx-rectfill-xa-ya-xb-yb-c)
-  - [`rect(xa, ya, xb, yb, c)`](#sugargfx-rect-xa-ya-xb-yb-c)
-  - [`circfill(x, y, r, c)`](#sugargfx-circfill-x-y-r-c)
-  - [`circ(x, y, r, c)`](#sugargfx-circ-x-y-r-c)
-  - [`trifill(xa, ya, xb, yb, xc, yc, c)`](#sugargfx-trifill-xa-ya-xb-yb-xc-yc-c)
-  - [`tri(xa, ya, xb, yb, xc, yc, c)`](#sugargfx-tri-xa-ya-xb-yb-xc-yc-c)
-  - [`line(xa, ya, xb, yb, c)`](#sugargfx-line-xa-ya-xb-yb-c)
-  - [`pset(x, y, c)`](#sugargfx-pset-x-y-c)
-  - [`pget(x, y)`](#sugargfx-pget-x-y)
-  - [`use_palette(plt)`](#sugargfx-use_palette-plt)
-  - [`get_palette()`](#sugargfx-get_palette-)
-  - [`palette_len()`](#sugargfx-palette_len-)
-  - [`new_surface(w, h, key)`](#sugargfx-new_surface-w-h-key)
-  - [`load_png(key, file_name, palette, use_as_spritesheet)`](#sugargfx-load_png-key-file_name-palette-use_as_spritesheet)
-  - [`delete_surface(key)`](#sugargfx-delete_surface-key)
-  - [`surface_size(key)`](#sugargfx-surface_size-key)
-  - [`surface_exists(key)`](#sugargfx-surface_exists-key)
-  - [`surfshot(surf_key, scale, file_name)`](#sugargfx-surfshot-surf_key-scale-file_name)
-  - [`target(surf_key)`](#sugargfx-target-surf_key)
-  - [`get_target()`](#sugargfx-get_target-)
-  - [`target_size()`](#sugargfx-target_size-)
-  - [`target_w()`](#sugargfx-target_w-)
-  - [`target_h()`](#sugargfx-target_h-)
-  - [`scan_surface(surf_key)`](#sugargfx-scan_surface-surf_key)
-  - [`palettes`](#sugargfx-palettes)
-  - [`spritesheet(surf_key)`](#sugargfx-spritesheet-surf_key)
-  - [`get_spritesheet()`](#sugargfx-get_spritesheet-)
-  - [`spritesheet_grid(w, h)`](#sugargfx-spritesheet_grid-w--8-h--8)
-  - [`get_spritesheet_grid()`](#sugargfx-get_spritesheet_grid-)
-  - [`spr(s, x, y, w, h, flip_x, flip_y)`](#sugargfx-spr-s-x-y-w--1-h--1-flip_x-flip_y)
-  - [`aspr(s, x, y, a, w, h, anchor_x, anchor_y, scale_x, scale_y)`](#sugargfx-aspr-s-x-y-a-w--1-h--1-anchor_x--05-anchor_y--05-scale_x-scale_y)
-  - [`sspr(sx, sy, sw, sh, dx, dy, dw, dh)`](#sugargfx-sspr-sx-sy-sw-sh-dx-dy-dw--sw-dh--sh)
-  - [`spr_sheet(key, x, y, dw, dh)`](#sugargfx-spr_sheet-key-x-y-dw-dh)
-  - [`sget(x, y, key)`](#sugargfx-sget-x-y-key)
-  - [`load_font(ttf_filepath, size, key, use_it)`](#sugargfx-load_font-ttf_filepath-size-key-use_it)
-  - [`delete_font(key)`](#sugargfx-delete_font-key)
-  - [`use_font(key)`](#sugargfx-use_font-key)
-  - [`get_font()`](#sugargfx-get_font-)
-  - [`str_px_width(str, font)`](#sugargfx-str_px_width-str-font)
-  - [`print(str, x, y, c)`](#sugargfx-print-str-x-y-c)
-  - [`printp(a, b, c, d)`](#sugargfx-printp-a-b-c-d)
-  - [`printp_color(c1, c2, c3)`](#sugargfx-printp_color-c1-c2-c3)
-  - [`pprint(str, x, y, c1, c2, c3)`](#sugargfx-pprint-str-x-y-c1-c2-c3)
-  - [`screen_size()`](#sugargfx-screen_size-)
-  - [`screen_w()`](#sugargfx-screen_w-)
-  - [`screen_h()`](#sugargfx-screen_h-)
-  - [`screen_scale()`](#sugargfx-screen_scale-)
-  - [`screen_render_stretch(enable)`](#sugargfx-screen_render_stretch-enable)
-  - [`screen_render_integer_scale(enable)`](#sugargfx-screen_render_integer_scale-enable)
-  - [`screen_resizeable(enable, scale, on_resize_callback)`](#sugargfx-screen_resizeable-enable-scale-on_resize_callback)
-  - [`screen_resize(w, h, resize_window)`](#sugargfx-screen_resize-w-h-resize_window)
-  - [`update_screen_size()`](#sugargfx-update_screen_size-)
-  - [`screen_get_render_stretch()`](#sugargfx-screen_get_render_stretch-)
-  - [`screen_get_render_integer_scale()`](#sugargfx-screen_get_render_integer_scale-)
-  - [`screen_get_resizeable()`](#sugargfx-screen_get_resizeable-)
-  - [`set_background_color(c)`](#sugargfx-set_background_color-c)
-  - [`window_size(w, h)`](#sugargfx-window_size-w-h)
+  - General
+    - [`init_gfx(window_name, w, h, scale)`](#sugargfx-init_gfx-window_name-w-h-scale)
+    - [`shutdown_gfx()`](#sugargfx-shutdown_gfx-)
+    - [`flip()`](#sugargfx-flip-)
+    - [`render_to_canvas(canvas)`](#sugargfx-render_to_canvas-canvas)
+  - Draw parameters
+    - [`camera(x, y)`](#sugargfx-camera-x--0-y--0)
+    - [`camera_move(dx, dy)`](#sugargfx-camera_move-dx-dy)
+    - [`get_camera()`](#sugargfx-get_camera-)
+    - [`clip(x, y, w, h)`](#sugargfx-clip-x-y-w-h)
+    - [`get_clip()`](#sugargfx-get_clip-)
+    - [`color(i)`](#sugargfx-color-i)
+    - [`pal(ca, cb, flip_level)`](#sugargfx-pal-ca-cb-flip_level--false)
+    - [`palt(c, make_transparent)`](#sugargfx-palt-c-make_transparent)
+  - Draw operations
+    - [`clear(c)`](#sugargfx-clear-c--0)
+    - [`cls(c)`](#sugargfx-cls-c--0)
+    - [`rectfill(xa, ya, xb, yb, c)`](#sugargfx-rectfill-xa-ya-xb-yb-c)
+    - [`rect(xa, ya, xb, yb, c)`](#sugargfx-rect-xa-ya-xb-yb-c)
+    - [`circfill(x, y, r, c)`](#sugargfx-circfill-x-y-r-c)
+    - [`circ(x, y, r, c)`](#sugargfx-circ-x-y-r-c)
+    - [`trifill(xa, ya, xb, yb, xc, yc, c)`](#sugargfx-trifill-xa-ya-xb-yb-xc-yc-c)
+    - [`tri(xa, ya, xb, yb, xc, yc, c)`](#sugargfx-tri-xa-ya-xb-yb-xc-yc-c)
+    - [`line(xa, ya, xb, yb, c)`](#sugargfx-line-xa-ya-xb-yb-c)
+    - [`pset(x, y, c)`](#sugargfx-pset-x-y-c)
+    - [`pget(x, y)`](#sugargfx-pget-x-y)
+  - Palette
+    - [`use_palette(plt)`](#sugargfx-use_palette-plt)
+    - [`get_palette()`](#sugargfx-get_palette-)
+    - [`palette_len()`](#sugargfx-palette_len-)
+    - [`palettes`](#sugargfx-palettes)
+  - Surfaces
+    - [`new_surface(w, h, key)`](#sugargfx-new_surface-w-h-key)
+    - [`load_png(key, file_name, palette, use_as_spritesheet)`](#sugargfx-load_png-key-file_name-palette-use_as_spritesheet)
+    - [`delete_surface(key)`](#sugargfx-delete_surface-key)
+    - [`surface_size(key)`](#sugargfx-surface_size-key)
+    - [`surface_exists(key)`](#sugargfx-surface_exists-key)
+    - [`surfshot(surf_key, scale, file_name)`](#sugargfx-surfshot-surf_key-scale-file_name)
+    - [`target(surf_key)`](#sugargfx-target-surf_key)
+    - [`get_target()`](#sugargfx-get_target-)
+    - [`target_size()`](#sugargfx-target_size-)
+    - [`target_w()`](#sugargfx-target_w-)
+    - [`target_h()`](#sugargfx-target_h-)
+    - [`scan_surface(surf_key)`](#sugargfx-scan_surface-surf_key)
+  - Sprites
+    - [`spritesheet(surf_key)`](#sugargfx-spritesheet-surf_key)
+    - [`get_spritesheet()`](#sugargfx-get_spritesheet-)
+    - [`spritesheet_grid(w, h)`](#sugargfx-spritesheet_grid-w--8-h--8)
+    - [`get_spritesheet_grid()`](#sugargfx-get_spritesheet_grid-)
+    - [`spr(s, x, y, w, h, flip_x, flip_y)`](#sugargfx-spr-s-x-y-w--1-h--1-flip_x-flip_y)
+    - [`aspr(s, x, y, a, w, h, anchor_x, anchor_y, scale_x, scale_y)`](#sugargfx-aspr-s-x-y-a-w--1-h--1-anchor_x--05-anchor_y--05-scale_x-scale_y)
+    - [`sspr(sx, sy, sw, sh, dx, dy, dw, dh)`](#sugargfx-sspr-sx-sy-sw-sh-dx-dy-dw--sw-dh--sh)
+    - [`spr_sheet(key, x, y, dw, dh)`](#sugargfx-spr_sheet-key-x-y-dw-dh)
+    - [`sget(x, y, key)`](#sugargfx-sget-x-y-key)
+  - Text rendering
+    - [`load_font(ttf_filepath, size, key, use_it)`](#sugargfx-load_font-ttf_filepath-size-key-use_it)
+    - [`delete_font(key)`](#sugargfx-delete_font-key)
+    - [`use_font(key)`](#sugargfx-use_font-key)
+    - [`get_font()`](#sugargfx-get_font-)
+    - [`str_px_width(str, font)`](#sugargfx-str_px_width-str-font)
+    - [`print(str, x, y, c)`](#sugargfx-print-str-x-y-c)
+    - [`printp(a, b, c, d)`](#sugargfx-printp-a-b-c-d)
+    - [`printp_color(c1, c2, c3)`](#sugargfx-printp_color-c1-c2-c3)
+    - [`pprint(str, x, y, c1, c2, c3)`](#sugargfx-pprint-str-x-y-c1-c2-c3)
+  - Screen size and render modes
+    - [`screen_size()`](#sugargfx-screen_size-)
+    - [`screen_w()`](#sugargfx-screen_w-)
+    - [`screen_h()`](#sugargfx-screen_h-)
+    - [`screen_scale()`](#sugargfx-screen_scale-)
+    - [`screen_render_stretch(enable)`](#sugargfx-screen_render_stretch-enable)
+    - [`screen_render_integer_scale(enable)`](#sugargfx-screen_render_integer_scale-enable)
+    - [`screen_resizeable(enable, scale, on_resize_callback)`](#sugargfx-screen_resizeable-enable-scale-on_resize_callback)
+    - [`screen_resize(w, h, resize_window)`](#sugargfx-screen_resize-w-h-resize_window)
+    - [`update_screen_size()`](#sugargfx-update_screen_size-)
+    - [`screen_get_render_stretch()`](#sugargfx-screen_get_render_stretch-)
+    - [`screen_get_render_integer_scale()`](#sugargfx-screen_get_render_integer_scale-)
+    - [`screen_get_resizeable()`](#sugargfx-screen_get_resizeable-)
+    - [`set_background_color(c)`](#sugargfx-set_background_color-c)
+    - [`window_size(w, h)`](#sugargfx-window_size-w-h)
+  - Post-processing shader
+    - [`screen_shader(shader_code)`](#sugargfx-screen_shader-shader_code)
+    - [`screen_shader_input(value_table)`](#sugargfx-shader_input-value_table)
 
 &#8202;
 
@@ -546,3 +557,30 @@ The default font in Sugarcoat is TeapotPro by [Eeve Somepx](https://twitter.com/
 - In any case, returns:
   - the width of the window
   - the height of the window
+
+&#8202;
+
+---
+
+#### `sugar.gfx. screen_shader ([shader_code])`
+- Attempts to compile the string `shader_code` as a GLSL ES shader.
+- If compiled successfully, the shader is used to render the simulated screen onto the actual full-size screen.
+- If the compilation failed, an error will be shown in the log, along with why it failed.
+- If `shader_code` is not set, this will reset to the default rendering shader.
+
+&#8202;
+
+#### `sugar.gfx. screen_shader_input(value_table)`
+- Feeds data into `extern` variables in the current screen shader.
+- For each key in `value_table`, if a corresponding `extern` variable exists in the shader, it will receive the corresponding value.
+- Both array values and vector values should be passed as list-style tables.
+- `value_table` has to be defined as a table such as this:
+```lua
+{
+  [key_A] = value,
+  [key_B] = {array_v1, array_v2, ...},
+  [key_C] = {vec_x, vec_y, vec_z},
+  ...
+}
+```
+
