@@ -57,6 +57,8 @@ function love.load()
 end
 
 function love.update()
+  screen_shader_input({ time = t() })
+
   if btn(0) then px = px - 1 end
   if btn(1) then px = px + 1 end
   if btn(2) then py = py - 1 end

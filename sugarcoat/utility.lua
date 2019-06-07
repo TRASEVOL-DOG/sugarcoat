@@ -5,19 +5,25 @@ sugar = sugar or {}
 
 -- puts package's content into global environment
 -- will not replace already existing global content unless 'do_override' is true.
+local _overridden = {}
 local function using_package(p, do_override)
   local env = getfenv(2)
-  
+
   for n,v in pairs(p) do
     if env[n] then
       if do_override then
         sugar.debug.w_log("Overriding key \'"..n.."\' through using_package.")
+        _overridden[n] = env[n]
         env[n] = v
       end
     else
       env[n] = v
     end
   end
+end
+
+local function overriden_globals()
+  return _overridden
 end
 
 

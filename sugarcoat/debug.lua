@@ -69,6 +69,8 @@ local function assert(condition, str)
   if not condition then
     abort("Assert Failed: "..str)
   end
+  
+  return condition
 end
 
 local function abort(str)

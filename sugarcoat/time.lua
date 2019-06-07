@@ -62,7 +62,7 @@ end
 
 
 local function t()
-  return love.timer.getTime() - _initial_time
+  return love.timer.getTime() - (_initial_time or 0)
 end
 local time = t
 
