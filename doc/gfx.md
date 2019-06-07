@@ -564,9 +564,14 @@ The default font in Sugarcoat is TeapotPro by [Eeve Somepx](https://twitter.com/
 
 #### `sugar.gfx. screen_shader ([shader_code])`
 - Attempts to compile the string `shader_code` as a GLSL ES shader.
-- In your shader code, you should use `Texel_color(Image texture, vec2 coords)` to get the screen's color, as the return value of a regular `Texel` will be encoded. You may also use `Texel_index(Image texture, vec2 coords)` to get the color's index in the palette, as an int.
 - If compiled successfully, the shader is used to render the simulated screen onto the actual full-size screen.
 - If the compilation failed, an error will be shown in the log, along with why it failed.
+- In your shader code, you can use the following functions and variables:
+  - `Texel_color(Image texture, vec2 coords)` returns the screen's color at those coordinates. You should use this function instead of `Texel(...)` because the latter will return encoded values.
+  - `Texel_index(Image texture, vec2 coords)` returns the palette index for the color at those coordinates, as an `int`.
+  - `SCREEN_SIZE` is a `vec2` containing the width and the height of the simulated screen.
+  - `PALETTE` is an array of `vec4`, containing the colors of the palette.
+  - `SWAPS` is an array of `int` containing the [palette swaps](#sugargfx-pal-ca-cb-flip_level--false) made at flip level.
 - If `shader_code` is not set, this will reset to the default rendering shader.
 
 &#8202;
