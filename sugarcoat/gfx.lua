@@ -802,7 +802,7 @@ local function new_surface(w, h, key)
     key = #_D.surf_list + 1
   end
   
-  _D.surf_list[key] = love.graphics.newCanvas(w, h)
+  _D.surf_list[key] = love.graphics.newCanvas(w, h, {dpiscale = 1})
   
   sugar.debug.log("Successfully created "..w.."x"..h.." surface '"..key.."'.")
   
