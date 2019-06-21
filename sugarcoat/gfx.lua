@@ -615,7 +615,8 @@ end
 local function color(i)
   if i == _D.color then return end
 
-  i = i % _D.palette_size
+  --i = i % _D.palette_size
+  i = _D.pltswp_dw[flr(i) % _D.palette_size]
   
   _D.love_color = _index_colors[i]
   

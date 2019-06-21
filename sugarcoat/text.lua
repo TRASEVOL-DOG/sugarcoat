@@ -101,10 +101,10 @@ local function printp(a, b, c, d)
 end
 
 local function printp_color(c1, c2, c3)
-  _D.printp_col1 = c1 or 0
-  _D.printp_col2 = c2 or 0
-  _D.printp_col3 = c3 or 0
-  
+  _D.printp_col1 = c1 or _D.printp_col1 or 0
+  _D.printp_col2 = c2 or _D.printp_col2 or 0
+  _D.printp_col3 = c3 or _D.printp_col3 or 0
+
   _D.printp_love_col1 = {
     (sugar.maths.flr(_D.printp_col1) % 10) /10,
     (sugar.maths.flr(_D.printp_col1/10) % 10) /10,

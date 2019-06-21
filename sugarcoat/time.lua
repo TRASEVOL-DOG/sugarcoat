@@ -85,7 +85,7 @@ end
 local function fps()
   local total = 0
   for i = 0, 15 do
-    total = total + __frame_time_buffer[i]
+    total = total + _frame_time_buffer[i]
   end
   return 16 / total
 end

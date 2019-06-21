@@ -52,7 +52,7 @@ local function arrange_call(v, before, after)
     if r[1] then
       return r[2]
     else
-      r_log(r[2])
+      sugar.debug.r_log(r[2])
       error(r[2], 0)
     end
   end
@@ -77,7 +77,7 @@ if SUGAR_SERVER_MODE then
       if r[1] then
         return r[2]
       else
-        r_log(r[2])
+        sugar.debug.r_log(r[2])
         error(r[2], 0)
       end
     end
