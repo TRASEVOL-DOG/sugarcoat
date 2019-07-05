@@ -708,7 +708,7 @@ local function pset(x, y, c)
 end
 
 local function pget(x, y) -- use `scan_surface() first!`
-  local data = _D.surf_data[_D.screen]
+  local data = _D.surf_data[_D.target]
   
   if not data then return 0 end
   

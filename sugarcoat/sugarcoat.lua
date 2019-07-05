@@ -23,7 +23,7 @@ sugar.S = {}
 
 local events = require("sugarcoat/sugar_events")
 
-local active_canvas
+local active_canvas, active_color
 local old_love = love
 
 local _debug = debug
@@ -33,6 +33,7 @@ local function arrange_call(v, before, after)
     -- wrap before
     if active_canvas then
       old_love.graphics.setCanvas(active_canvas)
+      old_love.graphics.setColor(active_color or {1, 1, 1, 1})
     end
     
     if before then before(...) end
@@ -46,6 +47,7 @@ local function arrange_call(v, before, after)
     
     if after then after(...) end
     
+    active_color = {old_love.graphics.getColor()}
     active_canvas = old_love.graphics.getCanvas()
     old_love.graphics.setCanvas()
     
