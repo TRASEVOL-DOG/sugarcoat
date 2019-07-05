@@ -366,12 +366,10 @@ end
 
 function ev.gamepadpressed(joystick, button)
   _button_press_state("controller_button", button, true, joystick)
-  sugar.debug.log(button.." press.")
 end
 
 function ev.gamepadreleased(joystick, button)
   _button_press_state("controller_button", button, false, joystick)
-  sugar.debug.log(button.." release.")
 end
 
 
