@@ -897,14 +897,14 @@ local function scan_surface(key)
 end
 
 
-local function surfshot(surf_key, scale, file_name)
+local function surfshot_data(surf_key, scale)
   local surf = _D.surf_list[surf_key or _D.screen]
   if not surf then
     sugar.debug.r_log("Attempt to use 'surfshot(...)' on inexistent surface '"..surf_key.."'.")
   end
 
   local w, h = surf:getDimensions()
-  local shot = love.graphics.newCanvas(w * scale, h * scale)
+  local shot = love.graphics.newCanvas(w * scale, h * scale, {dpiscale = 1})
   
   local active_canvas = love.graphics.getCanvas()
   
@@ -920,7 +920,15 @@ local function surfshot(surf_key, scale, file_name)
   love.graphics.setCanvas(active_canvas)
   love.graphics.translate(-_flr(_D.cam_x), -_flr(_D.cam_y))
   
-  shot:newImageData():encode("png", file_name)
+  return shot:newImageData()
+end
+
+local function surfshot(surf_key, scale, file_name)
+  local data = surfshot_data(surf_key, scale)
+  
+  if data then
+    data:encode("png", file_name)
+  end
 end
 
 

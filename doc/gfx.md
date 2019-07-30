@@ -39,6 +39,7 @@
     - [`surface_size(key)`](#sugargfx-surface_size-key)
     - [`surface_exists(key)`](#sugargfx-surface_exists-key)
     - [`surfshot(surf_key, scale, file_name)`](#sugargfx-surfshot-surf_key-scale-file_name)
+    - [`surfshot_data(surf_key, scale)`](#sugargfx-surfshot_data-surf_key-scale)
     - [`target(surf_key)`](#sugargfx-target-surf_key)
     - [`get_target()`](#sugargfx-get_target-)
     - [`target_size()`](#sugargfx-target_size-)
@@ -310,6 +311,13 @@
 - Saves the surface `surf_key`, upscaled by `scale`, as `file_name`, as a PNG.
 - The picture will be saved locally, at `%appdata%\LOVE\[project  (or Castle)]` if on Windows, and at `/Users/user/Library/Application Support/LOVE/[project  (or castle)]` if on Mac.
 - If `surf_key` is `nil`, saves the screen surface.
+
+&#8202;
+
+#### `sugar.gfx. surfshot_data (surf_key, scale)`
+- Returns an ImageData representing the surface `surf_key`, upscaled by `scale`.
+- If `surf_key` is `nil`, it uses the screen surface instead.
+- ImageData is [a Love2D data type](https://love2d.org/wiki/ImageData).
 
 &#8202;
 

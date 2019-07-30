@@ -102,6 +102,8 @@ local function palt(c, make_transparent)
     end
     
     _D.transparency[0] = 1
+    
+    return
   end
 
   _D.transparency[c] = make_transparent and 1 or 0
