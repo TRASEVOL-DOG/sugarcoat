@@ -25,6 +25,7 @@ local events = require("sugarcoat/sugar_events")
 
 local active_canvas, active_color
 local old_love = love
+local set_love = setmetatable({}, {__index = old_love})
 
 local _debug = debug
 
@@ -87,7 +88,7 @@ if SUGAR_SERVER_MODE then
 end
 
 love = setmetatable({}, {
-  __index = old_love,
+  __index = set_love,
   __newindex = function(t, k, v)
     if type(v) == "function" or v == nil then
       if k == "draw" and not SUGAR_SERVER_MODE then
@@ -102,8 +103,11 @@ love = setmetatable({}, {
       else
         old_love[k] = arrange_call(v)
       end
+      
+      set_love[k] = v
     else
       old_love[k] = v
+      set_love[k] = v
     end
   end
 })
@@ -128,8 +132,10 @@ end
 local _castle_prev_exist
 if castle then
   local old_castle = castle
+  local set_castle = setmetatable({}, {__index = old_castle})
+  
   castle = setmetatable({}, {
-    __index = old_castle,
+    __index = set_castle,
     __newindex = function(t, k, v)
       if type(v) == "function" or v == nil then
         if k == "backgroundupdate" then
@@ -137,8 +143,11 @@ if castle then
         else
           old_castle[k] = arrange_call(v)
         end
+        
+        set_castle[k] = v
       else
         old_castle[k] = v
+        set_castle[k] = v
       end
     end
   })
