@@ -465,14 +465,18 @@ The default font in Sugarcoat is TeapotPro by [Eeve Somepx](https://twitter.com/
 
 #### `sugar.gfx. printp (a, b, c, d)`
 - Defines the print pattern for `pprint(...)`.
-- `a, b, c, d` are to be defined as such:
+- This function should be called like this:
 ```lua
-  printp( 0x3330,
-          0x3130,
-          0x3230,
-          0x3330 )
+  printp( 0x1200,
+          0x2300,
+          0x0000,
+          0x0000 )
 ```
-- The text will be drawn multiple times, with offsets according to the numbers' positions on the pattern, with the colors defined in "printp_color(...)". 2 will be drawn on top of 3, and 1 will be drawn on top of 2.
+- `a, b, c, d` represent the four lines of the pattern, with each hexadecimal number being a cell of the pattern.
+- The hexadecimal number defines the viewing priority: 1 will always be visible, 2 may be hidden by 1 but not by 3, 3 may be hidden by 1 and 2, 0 will not be drawn.
+- The position of those numbers on the grid defines the offset with which they should be drawn.
+- Those numbers also correspond to the colors you set with `printp_color(c1, c2, c3)`.
+- With the example above, `pprint(text, x, y)` will render `text` at `x+1, y+1` with color 3, then at `x+1, y` and `x, y+1` with color 2, and finally at `x, y` with color 1.
 
 &#8202;
 
@@ -481,8 +485,9 @@ The default font in Sugarcoat is TeapotPro by [Eeve Somepx](https://twitter.com/
 
 &#8202;
 
-#### `sugar.gfx. pprint (str, x, y, c1, c2, c3)`
-- Draw text with the pattern defined by the last `printp(...)` call.
+#### `sugar.gfx. pprint (str, x, y, [c1, c2, c3])`
+- Renders the string `str` with the pattern defined by the last `printp(...)` call, at the coordonates `x, y`.
+- `c1, c2, c3` are optional, you may call `printp_color(c1, c2, c3)` beforehand instead.
 
 &#8202;
 
