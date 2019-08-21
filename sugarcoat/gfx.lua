@@ -1199,6 +1199,7 @@ local gfx = {
   scan_surface                   = scan_surface,
   
   surfshot                       = surfshot,
+  surfshot_data                  = surfshot_data,
   
   palettes                       = palettes
 }
