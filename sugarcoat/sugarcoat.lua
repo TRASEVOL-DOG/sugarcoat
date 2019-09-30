@@ -193,7 +193,7 @@ love.quit = quit
 events.quit = quit
 
 
-if castle then
+if castle and castle.system.isServer then
   local canvas
   function network.paused()
     canvas = love.graphics.getCanvas()
