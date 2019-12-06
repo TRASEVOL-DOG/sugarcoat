@@ -159,19 +159,12 @@ local function init_gfx(window_name, w, h, scale)
     return
   end
   
-  -- Love2D rendering settings
-  love.mouse.setVisible(false)
-  love.graphics.setDefaultFilter("nearest","nearest",0)
-  love.graphics.setPointSize(1)
-  love.graphics.setLineWidth(1)
-  love.graphics.setLineStyle("rough")
-  love.graphics.setLineJoin("miter")
-  
   _load_shaders()
   
   _D.surf_list = {}
   _D.font_list = {}
   
+  love.graphics.setDefaultFilter("nearest","nearest",0)
   
   -- window size setting
   local win_w, win_h
@@ -219,11 +212,20 @@ local function init_gfx(window_name, w, h, scale)
   sugar.gfx.use_font()
   sugar.gfx.printp()
   sugar.gfx.printp_color()
-    
-  _D.init = true;
-
+  
+  -- Love2D rendering settings
+  love.mouse.setVisible(false)
+  love.graphics.setDefaultFilter("nearest","nearest",0)
+  love.graphics.setPointSize(1)
+  love.graphics.setLineWidth(1)
+  love.graphics.setLineStyle("rough")
+  love.graphics.setLineJoin("miter")
+  
+  _D.init = true
+  
+  -- screen rendering style
   sugar.gfx.screen_render_stretch(false)
-  sugar.gfx.screen_render_integer_scale(true)
+  sugar.gfx.screen_render_integer_scale(false)
   
   sugar.debug.log("GFX system initialized.");
 end
@@ -529,9 +531,11 @@ local function screen_shader(shader_code)
       local var = var_dec:match('extern.-%a+.-([%a_]+).-;')
       local is_array = var_dec:find('%[') ~= nil
       
-      _shader_vars[var] = true
-      if is_array then
-        _shader_arrays[var] = true
+      if _D.shaders.index_to_color:hasUniform(var) then
+        _shader_vars[var] = true
+        if is_array then
+          _shader_arrays[var] = true
+        end
       end
     end
     
@@ -823,6 +827,7 @@ local function delete_surface(key)
   local w,h = canvas:getDimensions()
   
   _D.surf_list[key] = nil
+  canvas:release()
   
   sugar.debug.log("Deleted "..w.."x"..h.." surface '"..key.."'.");
 end

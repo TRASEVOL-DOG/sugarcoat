@@ -8,7 +8,7 @@ local _D = require("sugarcoat/gfx_vault")
 
 
 local function load_font(ttf_filepath, size, key, use_it)
-  local fnt = love.graphics.newFont(ttf_filepath, size, "mono")
+  local fnt = love.graphics.newFont(ttf_filepath, size, "mono", 1.0)
   fnt:setFilter("nearest", "nearest", 0)
 
   if not key then

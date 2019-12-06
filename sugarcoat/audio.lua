@@ -131,6 +131,13 @@ local function sfx(id, distance, stereo_angle, pitch)
 end
 
 local function music(id, loop)
+  if not id then
+    if _music_playing.mus then
+      _music_playing.mus:stop()
+    end
+    return
+  end
+
   local s = _music_map[id]
   
   if not s then

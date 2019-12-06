@@ -13,7 +13,7 @@ sugar.utility.using_package(sugar.S, true)
 
 function love.load()
   init_sugar("Apple!", 128, 128, 3)
-  screen_render_integer_scale(false)
+ -- screen_render_integer_scale(false)
   
   set_frame_waiting(30)
   
@@ -326,7 +326,7 @@ end
 
 
 function define_controls()
-  player_assign_ctrlr(0, 0)
+  player_assign_ctrlr(0, 1)
 
   register_btn(0, 0, {input_id("keyboard", "left"),
                       input_id("keyboard", "a"),

@@ -74,6 +74,7 @@ Any volume value here is always between `0` and `1`.
 
 &#8202;
 
-#### `sugar.audio. music (id, [loop])`
+#### `sugar.audio. music ([id, [loop]])`
 - Plays the music `id`.
 - If `loop` is `true`, the music will start over after it ends.
+- Call `music()` with no arguments to stop the playing music.

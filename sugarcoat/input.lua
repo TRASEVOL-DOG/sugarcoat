@@ -304,10 +304,10 @@ local function _button_press_state(type, key, state, controller)
   if not butts then return end
   
   for _,butt in pairs(butts) do
-    --if not controller or controller == butt.player.controller then
+    if not controller or controller == butt.player.controller then
       butt.state = state
       butt.value = state and 1 or 0
-    --end
+    end
   end
 end
 
@@ -316,8 +316,10 @@ local function _button_value(type, key, value, controller)
   if not butts then return end
   
   for _,butt in pairs(butts) do
-    butt.state = (value ~= 0)
-    butt.value = value
+    if not controller or controller == butt.player.controller then
+      butt.state = (value ~= 0)
+      butt.value = value
+    end
   end
 end
 
@@ -359,9 +361,13 @@ function ev.wheelmoved(x, y)
   _scroll_id = _scroll_id + 1
 end
 
+local _gamepad_axes = {}
 function ev.gamepadaxis(joystick, axis, value)
   local v = sugar.maths.sgn(value) * sugar.maths.mid((sugar.maths.abs(value) - 0.15) / 0.7, 0, 1)
-  _button_value("controller_axis", axis, v, joystick)
+  if _gamepad_axes[joystick:getID()][axis] ~= v then
+    _button_value("controller_axis", axis, v, joystick)
+    _gamepad_axes[joystick:getID()][axis] = v
+  end
 end
 
 function ev.gamepadpressed(joystick, button)
@@ -375,6 +381,7 @@ end
 
 function ev.joystickadded(joystick)
   sugar.utility.add(_controllers, joystick)
+  _gamepad_axes[joystick:getID()] = {}
   sugar.debug.log("A new controller was detected!")
 end
 
