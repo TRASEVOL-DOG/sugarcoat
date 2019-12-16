@@ -95,7 +95,7 @@ love = setmetatable({}, {
         old_love[k] = arrange_call(v, nil, sugar.gfx.half_flip)
         
       elseif k == "update" then
-        old_love[k] = arrange_call(v, sugar_step, nil)
+        old_love[k] = arrange_call(v, sugar.sugar_step, nil)
         
       elseif events[k] then
         old_love[k] = arrange_call(v, events[k], nil)
@@ -139,7 +139,7 @@ if castle then
     __newindex = function(t, k, v)
       if type(v) == "function" or v == nil then
         if k == "backgroundupdate" then
-          old_castle[k] = arrange_call(v, sugar_step, nil)
+          old_castle[k] = arrange_call(v, sugar.sugar_step, nil)
         else
           old_castle[k] = arrange_call(v)
         end
@@ -175,11 +175,14 @@ require("sugarcoat/input")
 require("sugarcoat/audio")
 require("sugarcoat/core")
 
+
 for k,v in pairs(_prev_exist) do
   love[k] = v
 end
 
 if _castle_prev_exist then
+  castle.backgroundupdate = nil
+  
   for k,v in pairs(_castle_prev_exist) do
     castle[k] = v
   end
