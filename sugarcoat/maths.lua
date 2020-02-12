@@ -59,40 +59,59 @@ local function mid(a, b, c)
 end
 
 
-local B = require("bit")
-local FULL_INT = 0xffff
-local UINT_MAX = FULL_INT
-local x, y, z, w, v = 12345, 36246, 52128, 88675, 86123
-
 local function srand(seed)
-  seed = seed or 0
-
-  if seed % 1 ~= 0 then
-    seed = flr(seed * 1000)
-  end
-
-  x = abs(seed);
-  y = 36246;
-  z = 52128;
-  w = 88675;
-  v = 86123;
+  love.math.setRandomSeed(seed)
 end
 
 local function raw_rnd()
-  local t = B.bxor(x, B.rshift(x, 7))
-  x, y, z, w = y, z, w, v
-  v = B.bxor(B.bxor(v, B.band(B.lshift(v, 6), FULL_INT)), B.bxor(t, B.band(B.lshift(t, 13), FULL_INT)))
-  return B.band((y + y + 1) * v, FULL_INT)
+  return love.math.random()
 end
 
 local function rnd(n)
-  n = n or 1
-  return ((raw_rnd() / UINT_MAX) * n);
+  return love.math.random()*n
 end
 
 local function irnd(n)
-  return (raw_rnd() + 7483648) % n;
+  return flr(love.math.random()*n)
 end
+
+--local B = require("bit")
+--local FULL_INT = 0xffff
+--local UINT_MAX = FULL_INT
+----local x, y, z, w, v = 12345, 36246, 52128, 88675, 86123
+--local x, y, z, w, v = 12345, 362436069, 521288629, 88675123, 886756453
+--
+--local function srand(seed)
+--  seed = seed or 0
+--
+----  if seed % 1 ~= 0 then
+----    seed = flr(seed * 1000)
+----  end
+--
+--  x = B.tobit(seed)
+--  y = 362436069
+--  z = 521288629
+--  w = 88675123
+--  v = 886756453
+--end
+--
+--local function raw_rnd()
+--  local t = B.bxor(x, B.band(B.rshift(x, 7), 0xffff))
+--  x, y, z, w = y, z, w, v
+--  v = B.bxor(B.bxor(v, B.band(B.lshift(v, 6), 0xffff)), B.bxor(t, B.band(B.lshift(t, 13), 0xffff)))
+--  return B.band(B.tobit(B.tobit(y+y+1)*v), 0xffff);
+----  v = B.bxor(B.bxor(v, B.band(B.lshift(v, 6), FULL_INT)), B.bxor(t, B.band(B.lshift(t, 13), FULL_INT)))
+----  return B.band((y + y + 1) * v, FULL_INT)
+--end
+--
+--local function rnd(n)
+--  n = n or 1
+--  return (B.tobit(raw_rnd() + 0x8000) / 0xffff * n);
+--end
+--
+--local function irnd(n)
+--  return B.tobit(raw_rnd() + 0x8000) % n;
+--end
 
 local function pick(tab)
   local i = irnd(#tab) + 1

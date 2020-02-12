@@ -78,8 +78,8 @@ local function abort(str)
     _log("ABORT", str)
   end
   
-  shutdown_sugar();
-  error(str or "Program was aborted through Sugarcoat.");
+--  shutdown_sugar()
+  error(str or "Program was aborted through Sugarcoat.")
 end
 
 local function abort_brutal(str)

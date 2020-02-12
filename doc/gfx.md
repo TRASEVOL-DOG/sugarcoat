@@ -580,7 +580,7 @@ The default font in Sugarcoat is TeapotPro by [Eeve Somepx](https://twitter.com/
 - If compiled successfully, the shader is used to render the simulated screen onto the actual full-size screen.
 - If the compilation failed, an error will be shown in the log, along with why it failed.
 - In your shader code, you can use the following functions and variables:
-  - `Texel_color(Image texture, vec2 coords)` returns the screen's color at those coordinates. You should use this function instead of `Texel(...)` because the latter will return encoded values.
+  - `Texel_color(Image texture, vec2 coords)` returns the texture's color at those coordinates. You should use this function instead of `Texel(...)` because the latter will return encoded values.
   - `Texel_index(Image texture, vec2 coords)` returns the palette index for the color at those coordinates, as an `int`.
   - `SCREEN_SIZE` is a `vec2` containing the width and the height of the simulated screen.
   - `PALETTE` is an array of `vec4`, containing the colors of the palette.
@@ -593,6 +593,7 @@ The default font in Sugarcoat is TeapotPro by [Eeve Somepx](https://twitter.com/
 - Feeds data into `extern` variables in the current screen shader.
 - For each key in `value_table`, if a corresponding `extern` variable exists in the shader, it will receive the corresponding value.
 - Both array values and vector values should be passed as list-style tables.
+- Surfaces can be passed as Image variables in the shader.
 - `value_table` has to be defined as a table such as this:
 ```lua
 {

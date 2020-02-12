@@ -64,6 +64,10 @@ end
 
 local _flr = math.floor
 local function print(str, x, y, c)
+  if not x or not y then
+    sugar.debug.log(str, "Prt")
+  end
+
   if c then color(c) end
   
   love.graphics.print(str, _flr(x)+0.5, _flr(y)+0.5)
@@ -105,26 +109,9 @@ local function printp_color(c1, c2, c3)
   _D.printp_col2 = c2 or _D.printp_col2 or 0
   _D.printp_col3 = c3 or _D.printp_col3 or 0
 
-  _D.printp_love_col1 = {
-    (sugar.maths.flr(_D.printp_col1) % 10) /10,
-    (sugar.maths.flr(_D.printp_col1/10) % 10) /10,
-    (sugar.maths.flr(_D.printp_col1/100) % 10) /10,
-    1.0
-  }
-  
-  _D.printp_love_col2 = {
-    (sugar.maths.flr(_D.printp_col2) % 10) /10,
-    (sugar.maths.flr(_D.printp_col2/10) % 10) /10,
-    (sugar.maths.flr(_D.printp_col2/100) % 10) /10,
-    1.0
-  }
-  
-  _D.printp_love_col3 = {
-    (sugar.maths.flr(_D.printp_col3) % 10) /10,
-    (sugar.maths.flr(_D.printp_col3/10) % 10) /10,
-    (sugar.maths.flr(_D.printp_col3/100) % 10) /10,
-    1.0
-  }
+  _D.printp_love_col1 = _D._index_colors[_D.printp_col1]
+  _D.printp_love_col2 = _D._index_colors[_D.printp_col2]
+  _D.printp_love_col3 = _D._index_colors[_D.printp_col3]
 end
 
 local function pprint(str, x, y, c1, c2, c3)

@@ -13,6 +13,7 @@ local _flr = math.floor
 
 
 local _index_colors = {}
+local _shader_colors = {}
 local _custom_shader = false
 local _shader_vars = {}
 local _shader_arrays = {}
@@ -43,16 +44,10 @@ local function _load_shaders()
           c = b * float(i) + (1.0 - b) * c;
           sqrdist = b * sqrd + (1.0 - b) * sqrdist;
         }
-      
-        float cb = float(c);
         
-        vec3 icol = vec3(
-          mod(cb, 10.0),
-          mod(floor(cb / 10.0), 10.0),
-          mod(floor(cb / 100.0), 10.0)
-        );
+        vec3 idx = c / vec3(8.0, 64.0, 512.0);
         
-        return vec4(icol * 0.1, 1.0);
+        return vec4(mod(idx - mod(idx, 0.125), 1.0), 1.0);
       }
     ]],
     
@@ -65,21 +60,17 @@ local function _load_shaders()
       
       vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
       {
-        vec4 col = Texel( texture, texture_coords );
+        vec3 col = floor(Texel(texture, texture_coords).rgb * vec3(8.0, 8.0, 8.0) + vec3(0.5));
         
-        int c = int(floor(col.r * 10.0 + 0.5) + floor(col.g * 10.0 + 0.5)*10.0 + floor(col.b * 10.0 + 0.5) * 100.0);
+        int c = int(col.r + col.g * 8.0 + col.b * 64.0);
         
         float trsp = 1.0-trsps[c];
         
         float cb = swaps[c];
+
+        vec3 idx = cb / vec3(8.0, 64.0, 512.0);
         
-        vec3 icol = vec3(
-          mod(cb, 10.0),
-          mod(floor(cb / 10.0), 10.0),
-          mod(floor(cb / 100.0), 10.0)
-        );
-        
-        return vec4(icol * 0.1, trsp);
+        return vec4(mod(idx - mod(idx, 0.125), 1.0), trsp);
       }
     ]],
     
@@ -90,8 +81,11 @@ local function _load_shaders()
       
       vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords)
       {
-        vec4 col = Texel( texture, texture_coords );
-        return vec4(PALETTE[ SWAPS[int(floor(col.r * 10.0 + 0.5) + floor(col.g * 10.0 + 0.5)*10.0 + floor(col.b * 10.0 + 0.5) * 100.0)] ], 1.0);
+        vec3 col = floor(Texel(texture, texture_coords).rgb * vec3(8.0, 8.0, 8.0) + vec3(0.5));
+        
+        int c = int(col.r + col.g * 8.0 + col.b * 64.0);
+        
+        return vec4(PALETTE[ SWAPS[c] ], 1.0);
       }
     ]]
   }
@@ -115,7 +109,7 @@ local function _update_shader_palette()
   _D.shaders.color_to_index:send("opal", unpack(pal))
   _D.shaders.color_to_index:send("pal_size", #pal)
   
-  if (not _custom_shader) or _shader_vars["PALETTE"] then
+  if not _custom_shader or _shader_vars["PALETTE"] then
     _D.shaders.index_to_color:send("PALETTE", unpack(pal))
   end
 end
@@ -325,6 +319,13 @@ local function update_screen_size()
     win_w, win_h = sugar.gfx.window_size()
   end
   
+--  if FORCE_LANDSCAPE and win_w < win_h then
+--    win_w, win_h = win_h, win_w
+--    VIRTUAL_LANDSCAPE = true
+--  else
+--    VIRTUAL_LANDSCAPE = false
+--  end
+  
   local scr_w, scr_h = sugar.gfx.screen_size()
 
   if _D.screen_resizeable then
@@ -506,25 +507,38 @@ local function screen_shader(shader_code)
   -- ADD extern vec2 SCREEN_SIZE
   -- + update on resize
   
-  local pre = "extern vec2 SCREEN_SIZE; extern vec3 PALETTE[256]; extern int SWAPS[256]; int Texel_index(Image texture, vec2 coords); vec4 Texel_color(Image texture, vec2 coords); "
+  local pre = "int Texel_index(Image texture, vec2 coords); vec4 Texel_color(Image texture, vec2 coords); "
   local after = [[
     int Texel_index(Image texture, vec2 coords){
-	    vec4 col = Texel( texture, coords );
-	    int c = int(floor(col.r * 10.0 + 0.5) + floor(col.g * 10.0 + 0.5)*10.0 + floor(col.b * 10.0 + 0.5) * 100.0);
+	    vec3 col = floor(Texel(texture, coords).rgb * vec3(8.0, 8.0, 8.0) + vec3(0.5));
+      
+      int c = int(col.r + col.g * 8.0 + col.b * 64.0);
 	  
 	    return SWAPS[c];
 	  }
 	  
 	  vec4 Texel_color(Image texture, vec2 coords){
-	    return vec4(PALETTE[ Texel_index(texture, coords) ], 1.0);
+	    return vec4(PALETTE[Texel_index(texture, coords)], 1.0);
 	  }
   ]]
   
-  shader_code = pre..shader_code..after
+  local pre2 = " extern vec2 SCREEN_SIZE; extern vec3 PALETTE[256]; extern int SWAPS[256];"
+  
+  local i, li = 1
+  repeat
+    li, _, i = i, shader_code:find("extern%sImage.-;", i)
+  until i == nil
+  
+  if li > 1 then
+    shader_code = pre..shader_code:sub(1, li)..pre2..shader_code:sub(li+1, #shader_code)..after
+  else
+    shader_code = pre..pre2..shader_code..after
+  end
   
   local status, message = love.graphics.validateShader(true, shader_code)
   if status then
     _D.shaders.index_to_color = love.graphics.newShader(shader_code)
+    _custom_shader = true
     
     _shader_vars, _shader_arrays = {}, {}
     for var_dec in shader_code:gmatch('extern.-;') do
@@ -544,8 +558,6 @@ local function screen_shader(shader_code)
       local w,h = screen_size()
       _D.shaders.index_to_color:send("SCREEN_SIZE", {w, h})
     end
-    
-    _custom_shader = true
   else
     sugar.debug.r_log("Could not validate custom screen shader: "..message)
   end
@@ -557,6 +569,10 @@ local function screen_shader_input(value_table)
       if _shader_arrays[key] then
         _D.shaders.index_to_color:send(key, unpack(value))
       else
+        if type(value) == "string" then
+          value = _D.surf_list[value]
+        end
+        
         _D.shaders.index_to_color:send(key, value)
       end
     end
@@ -622,7 +638,7 @@ local function color(i)
   --i = i % _D.palette_size
   i = _D.pltswp_dw[flr(i) % _D.palette_size]
   
-  _D.love_color = _index_colors[i]
+  _D.love_color = _D._index_colors[i]
   
   love.graphics.setColor(_D.love_color)
   
@@ -651,7 +667,7 @@ end
 
 
 local function clear(c)
-  love.graphics.clear(_index_colors[c or 0])
+  love.graphics.clear(_D._index_colors[c or 0])
 end
 
 local cls = clear
@@ -749,6 +765,7 @@ local function use_palette(plt)
   
     
   _D.palette_norm = {}
+  _shader_colors = {}
   for i = 0, #plt do
     local c = plt[i]
     
@@ -759,6 +776,8 @@ local function use_palette(plt)
     }
     
     _D.palette_norm[i] = col
+    
+    _shader_colors[i+1] = col[1]*100 + col[2]*10 + col[3]
   end
   
   _D.palswaps={}
@@ -771,12 +790,12 @@ local function use_palette(plt)
   
   _D.palette_size = #_D.palette + 1
   
-  _index_colors = {}
+  _D._index_colors = {}
   for i = 0, #_D.palette do
-    _index_colors[i] = {
-      (sugar.maths.flr(i) % 10) /10,
-      (sugar.maths.flr(i/10) % 10) /10,
-      (sugar.maths.flr(i/100) % 10) /10,
+    _D._index_colors[i] = {
+      (sugar.maths.flr(i) % 8) * 0.125,
+      (sugar.maths.flr(i/8) % 8) * 0.125,
+      (sugar.maths.flr(i/64) % 8) * 0.125,
       1.0
     }
   end
@@ -807,7 +826,7 @@ local function new_surface(w, h, key)
     key = #_D.surf_list + 1
   end
   
-  _D.surf_list[key] = love.graphics.newCanvas(w, h, {dpiscale = 1})
+  _D.surf_list[key] = love.graphics.newCanvas(w, h, {type = "2d", format = "rgba8", dpiscale = 1})
   
   sugar.debug.log("Successfully created "..w.."x"..h.." surface '"..key.."'.")
   
