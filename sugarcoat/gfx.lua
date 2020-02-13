@@ -739,7 +739,7 @@ local function pget(x, y) -- use `scan_surface() first!`
   
   local r, g, b = data:getPixel(x, y)
   
-  local n = round(r * 10) + round(g * 10) * 10 + round(b * 10) * 100
+  local n = round(r * 8) + round(g * 8) * 8 + round(b * 8) * 64
   
   return n
 end
